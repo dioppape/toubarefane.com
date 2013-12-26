@@ -12,6 +12,7 @@ chapter of the Symfony Documentation.
 see http://www.nemesis.co.nz/2012/07/setting-up-symfony2-on-a-windows-7-environment/
 27b4ce87105ea7635d329fd8547382a71
 https://help.github.com/articles/set-up-git 
+http://www.jberger.org/inf2015/material/github-netbeans.pdf
 ----------------------------------
 
 When it comes to installing the Symfony Standard Edition, you have the
