@@ -1,3 +1,34 @@
-toubarefane_site_homepage:
-    pattern:  /hello-world
-    defaults: { _controller: ToubarefaneSiteBundle:Site:index }
+# src/Toubarefane/SiteBundle/Resources/config/routing.yml
+
+toubarefanesite_accueil:
+    path:      /{page}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:index, page: 1 }
+    requirements:
+        page:  \d*
+
+toubarefanesite_voir:
+    path:      /article/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:voir }
+    requirements:
+        id:  \d+
+
+toubarefanesite_ajouter:
+    path:      /ajouter
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:ajouter }
+
+toubarefanesite_modifier:
+    path:      /modifier/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:modifier }
+    requirements:
+        id:  \d+
+
+toubarefanesite_supprimer:
+    path:      /supprimer/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:supprimer }
+    requirements:
+        id:  \d+
+toubarefanesite_sendMail:
+    path:      /sendMail/{pseudo}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:sendMail }
+    requirements:
+        id:  \d+        

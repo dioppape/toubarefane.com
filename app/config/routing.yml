@@ -1,4 +1,4 @@
 toubarefane_site:
     resource: "@ToubarefaneSiteBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /site
 
