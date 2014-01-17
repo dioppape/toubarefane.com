@@ -5,3 +5,8 @@ services:
 #    toubarefane_site.example:
 #        class: %toubarefane_site.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    toubarefane_site.antispam:
+        class: Toubarefane\SiteBundle\Antispam\ToubarefaneAntispam
+        arguments: [@mailer, %locale%, 3]

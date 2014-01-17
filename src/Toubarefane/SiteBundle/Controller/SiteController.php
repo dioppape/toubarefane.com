@@ -6,35 +6,38 @@ namespace Toubarefane\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-
+use Toubarefane\SiteBundle\Entity\Article;
 class SiteController extends Controller
 {
   public function indexAction()
   {
-    
+     // On récupère le service
+    $antispam = $this->container->get('toubarefane_site.antispam');
+$text='http://tb.com refane@live.fr ';
+    // Je pars du principe que $text contient le texte d'un message quelconque
+    if ($antispam->isSpam($text)) {
+      throw new \Exception('Votre message a été détecté comme spam !');
+    }
+
 
     // Ici, on récupérera la liste des articles, puis on la passera au template
   // Les articles :
-  $articles = array(
-    array(
-      'titre'   => 'Mon weekend a Phi Phi Island !',
-      'id'      => 1,
-      'auteur'  => 'winzou',
-      'contenu' => 'Ce weekend était trop bien. Blabla…',
-      'date'    => new \Datetime()),
-    array(
-      'titre'   => 'Repetition du National Day de Singapour',
-      'id'      => 2,
-      'auteur' => 'winzou',
-      'contenu' => 'Bientôt prêt pour le jour J. Blabla…',
-      'date'    => new \Datetime()),
-    array(
-      'titre'   => 'Chiffre d\'affaire en hausse',
-      'id'      => 3, 
-      'auteur' => 'M@teo21',
-      'contenu' => '+500% sur 1 an, fabuleux. Blabla…',
-      'date'    => new \Datetime())
-  );
+     // On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $articles = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+  // Ou null si aucun article n'a été trouvé avec l'id $id
+  if($articles === null)
+  {
+    throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+  }
+    
     // Mais pour l'instant, on ne fait qu'appeler le template
     return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
     'articles' => $articles
@@ -59,37 +62,56 @@ class SiteController extends Controller
   }
   public function voirAction($id)
   {
-    $article = array(
-    'id'      => 1,
-    'titre'   => 'Mon weekend a Phi Phi Island !',
-    'auteur'  => 'winzou',
-    'contenu' => 'Ce weekend était trop bien. Blabla…',
-    'date'    => new \Datetime()
-  );
+     // On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $article = $repository->find($id);
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+  // Ou null si aucun article n'a été trouvé avec l'id $id
+  if($article === null)
+  {
+    throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+  }
     
-  // Puis modifiez la ligne du render comme ceci, pour prendre en compte l'article :
+  return $this->render('ToubarefaneSiteBundle:Site:voir.html.twig', array(
+    'article' => $article
+  ));
+    
   
-    return $this->render('ToubarefaneSiteBundle:Site:voir.html.twig', array(
-      'article' => $article
-    ));
   }
   
   public function ajouterAction()
   {
     // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
+    // Création de l'entité
+    $article = new Article();
+    $article->setTitre('Mon dernier weekend');
+    $article->setAuteur('Pape Diop');
+    $article->setContenu("C'était vraiment super et on s'est bien amusé.");
+    // On peut ne pas définir ni la date ni la publication,
+    // car ces attributs sont définis automatiquement dans le constructeur
+
+    // On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+
+    // Étape 1 : On « persiste » l'entité
+    $em->persist($article);
+
+    // Étape 2 : On « flush » tout ce qui a été persisté avant
+    $em->flush();
     
-    if( $this->get('request')->getMethod() == 'POST' )
-    {
-      // Ici, on s'occupera de la création et de la gestion du formulaire
-      
-      $this->get('session')->getFlashBag()->add('notice', 'Article bien enregistré');
-    
-      // Puis on redirige vers la page de visualisation de cet article
-      return $this->redirect( $this->generateUrl('sdzblog_voir', array('id' => 5)) );
+    // Reste de la méthode qu'on avait déjà écrit
+    if ($this->getRequest()->getMethod() == 'POST') {
+      $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
+      return $this->redirect( $this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())) );
     }
 
-    // Si on n'est pas en POST, alors on affiche le formulaire
-    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig');
+    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('article'=>$article));
   }
   
   public function modifierAction($id)
@@ -97,27 +119,26 @@ class SiteController extends Controller
     // Ici, on récupérera l'article correspondant à $id
 
     // Ici, on s'occupera de la création et de la gestion du formulaire
-
-    $article = array(
-      'id'      => 1,
-      'titre'   => 'Mon weekend a Phi Phi Island !',
-      'auteur'  => 'winzou',
-      'contenu' => 'Ce weekend était trop bien. Blabla…',
-      'date'    => new \Datetime()
-    );
-        
+// On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+ $article2 = $em->getRepository('ToubarefaneSiteBundle:Article')->find(2);
+ $article2->setAuteur('Pape Diop');
+  $em->flush();      
     // Puis modifiez la ligne du render comme ceci, pour prendre en compte l'article :
 
-    return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig',array('article'=>$article));
+    return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig',array('article'=>$article2));
   }
 
   public function supprimerAction($id)
   {
     // Ici, on récupérera l'article correspondant à $id
-
-    // Ici, on gérera la suppression de l'article en question
-
-    return $this->render('ToubarefaneSiteBundle:Site:supprimer.html.twig');
+//On récupère l'EntityManager
+    $em = $this->getDoctrine()->getManager();
+ $article = $em->getRepository('ToubarefaneSiteBundle:Article')->find($id);
+ $em->remove($article);
+ $em->flush();
+    return $this->indexAction();
+    //return $this->render('ToubarefaneSiteBundle:Site:index.html.twig',array('articles'=>$article));
   }
 
   // On modifie voirAction, car elle existe déjà
