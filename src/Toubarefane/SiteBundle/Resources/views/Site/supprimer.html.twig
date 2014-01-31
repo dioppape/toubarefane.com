@@ -8,19 +8,20 @@
 
 {% block toubarefanesite_body %}
 
-  <h2>Supprimer un article</h2>
-
-  {% include "ToubarefaneSiteBundle:Site:formulaire.html.twig" %}
+    <h2>Supprimer un article</h2>
 
   <p>
-    article supprimer
+    Etes-vous certain de vouloir supprimer l'article "{{ article.titre }}" ?
   </p>
 
-  <p>
+  {# On met l'id de l'article dans la route de l'action du formulaire #}
+  <form action="{{ path('toubarefanesite_supprimer', {'id': article.id}) }}" method="post">
     <a href="{{ path('toubarefanesite_voir', {'id': article.id}) }}" class="btn">
       <i class="icon-chevron-left"></i>
       Retour à l'article
     </a>
-  </p>
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
 
 {% endblock %}

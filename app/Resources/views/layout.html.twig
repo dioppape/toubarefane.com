@@ -15,16 +15,28 @@
   <body>
     <div class="container">
       <div id="header" class="hero-unit">
-        <h1>TOUBA REFANE</h1>
-        <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
-        <p><a class="btn btn-primary btn-large" href="http://www.siteduzero.com/informatique/tutoriels/developpez-votre-site-web-avec-le-framework-symfony2">
-          Lire le tutoriel »
+        
+          <p><img src="{{asset('img/logo_toubarefane_com.png')}}" width="150" /><img src="{{asset('img/toubarefane.png')}}" width="500"/><img src="{{asset('img/logo_toubarefane_com.png')}}" width="150" /></p><p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
+        <p><a class="btn btn-primary btn-large" href="{{ path('toubarefanesite_accueil') }}">
+          Accueil »
+        </a>
+        <a class="btn btn-primary btn-large" href="">
+          Categories »
+        </a>
+        <a class="btn btn-primary btn-large" href="">
+          Videos »
+        </a>
+        <a class="btn btn-primary btn-large" href="">
+          Photos »
+        </a>
+        <a class="btn btn-primary btn-large" href="http://www.siteduzero.com/informatique/tutoriels/developpez-votre-site-web-avec-le-framework-symfony2">
+          Lien »
         </a></p>
       </div>
 
       <div class="row">
         <div id="menu" class="span3">
-          <h3>Le blog</h3>
+          <h3>Le site</h3>
           <ul class="nav nav-pills nav-stacked">
             <li><a href="{{ path('toubarefanesite_accueil') }}">Accueil du blog</a></li>
             <li><a href="{{ path('toubarefanesite_ajouter') }}">Ajouter un article</a></li>

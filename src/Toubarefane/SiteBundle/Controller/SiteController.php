@@ -7,9 +7,13 @@ namespace Toubarefane\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Toubarefane\SiteBundle\Entity\Article;
+use Toubarefane\SiteBundle\Form\ImageType;
+use Toubarefane\SiteBundle\Form\ArticleType;
+use Toubarefane\SiteBundle\Form\ArticleEditType;
+use Toubarefane\SiteBundle\Form\CategorieType;
 class SiteController extends Controller
 {
-  public function indexAction()
+  public function indexAction($page)
   {
      // On récupère le service
     $antispam = $this->container->get('toubarefane_site.antispam');
@@ -23,24 +27,26 @@ $text='http://tb.com refane@live.fr ';
     // Ici, on récupérera la liste des articles, puis on la passera au template
   // Les articles :
      // On récupère le repository
-  $repository = $this->getDoctrine()
+  $articles = $this->getDoctrine()
                      ->getManager()
-                     ->getRepository('ToubarefaneSiteBundle:Article');
-
-  // On récupère l'entité correspondant à l'id $id
-  $articles = $repository->findAll();
+                     ->getRepository('ToubarefaneSiteBundle:Article')
+                     ->getArticles(3,$page);
+  
 
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
 
   // Ou null si aucun article n'a été trouvé avec l'id $id
   if($articles === null)
   {
-    throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+    throw $this->createNotFoundException('Article inexistant.');
   }
     
     // Mais pour l'instant, on ne fait qu'appeler le template
     return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
-    'articles' => $articles
+    'articles' => $articles,
+      'page'       => $page,
+      'nombrePage' => ceil(count($articles)/3)
+
   ));
 
   }
@@ -50,11 +56,20 @@ $text='http://tb.com refane@live.fr ';
     // On fixe en dur une liste ici, bien entendu par la suite on la récupérera depuis la BDD !
     // On pourra récupérer $nombre articles depuis la BDD,
     // avec $nombre un paramètre qu'on peut changer lorsqu'on appelle cette action
-    $liste = array(
-      array('id' => 2, 'titre' => 'Mon dernier weekend !'),
-      array('id' => 5, 'titre' => 'Sortie de Symfony2.1'),
-      array('id' => 9, 'titre' => 'Petit test')
-    );
+    $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $liste = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+  // Ou null si aucun article n'a été trouvé avec l'id $id
+  if($liste === null)
+  {
+    throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+  }
     
     return $this->render('ToubarefaneSiteBundle:Site:menu.html.twig', array(
       'liste_articles' => $liste // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
@@ -87,58 +102,95 @@ $text='http://tb.com refane@live.fr ';
   
   public function ajouterAction()
   {
-    // La gestion d'un formulaire est particulière, mais l'idée est la suivante :
-    // Création de l'entité
-    $article = new Article();
-    $article->setTitre('Mon dernier weekend');
-    $article->setAuteur('Pape Diop');
-    $article->setContenu("C'était vraiment super et on s'est bien amusé.");
-    // On peut ne pas définir ni la date ni la publication,
-    // car ces attributs sont définis automatiquement dans le constructeur
+     $article = new Article;
 
-    // On récupère l'EntityManager
-    $em = $this->getDoctrine()->getManager();
+    // On crée le formulaire grâce à l'ArticleType
+    $form = $this->createForm(new ArticleType(), $article);
 
-    // Étape 1 : On « persiste » l'entité
-    $em->persist($article);
+    // On récupère la requête
+    $request = $this->getRequest();
 
-    // Étape 2 : On « flush » tout ce qui a été persisté avant
-    $em->flush();
-    
-    // Reste de la méthode qu'on avait déjà écrit
-    if ($this->getRequest()->getMethod() == 'POST') {
-      $this->get('session')->getFlashBag()->add('info', 'Article bien enregistré');
-      return $this->redirect( $this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())) );
+    // On vérifie qu'elle est de type POST
+    if ($request->getMethod() == 'POST') {
+      // On fait le lien Requête <-> Formulaire
+      $form->bind($request);
+
+      // On vérifie que les valeurs entrées sont correctes
+      // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+      if ($form->isValid()) {
+        // On enregistre notre objet $article dans la base de données
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
+
+        // On définit un message flash
+        $this->get('session')->getFlashBag()->add('info', 'Article bien ajouté');
+
+        // On redirige vers la page de visualisation de l'article nouvellement créé
+        return $this->redirect($this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())));
+      }
     }
-
-    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('article'=>$article));
+    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('form' => $form->createView()));
   }
   
-  public function modifierAction($id)
+ public function modifierAction(Article $article)
   {
-    // Ici, on récupérera l'article correspondant à $id
+    // On utiliser le ArticleEditType
+    $form = $this->createForm(new ArticleEditType(), $article);
 
-    // Ici, on s'occupera de la création et de la gestion du formulaire
-// On récupère l'EntityManager
-    $em = $this->getDoctrine()->getManager();
- $article2 = $em->getRepository('ToubarefaneSiteBundle:Article')->find(2);
- $article2->setAuteur('Pape Diop');
-  $em->flush();      
-    // Puis modifiez la ligne du render comme ceci, pour prendre en compte l'article :
+    $request = $this->getRequest();
 
-    return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig',array('article'=>$article2));
+    if ($request->getMethod() == 'POST') {
+      $form->bind($request);
+
+      if ($form->isValid()) {
+        // On enregistre l'article
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
+
+        // On définit un message flash
+        $this->get('session')->getFlashBag()->add('info', 'Article bien modifié');
+
+        return $this->redirect($this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())));
+      }
+    }
+
+    return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig', array(
+      'form'    => $form->createView(),
+      
+    ));
   }
 
-  public function supprimerAction($id)
+  public function supprimerAction(Article $article)
   {
-    // Ici, on récupérera l'article correspondant à $id
-//On récupère l'EntityManager
-    $em = $this->getDoctrine()->getManager();
- $article = $em->getRepository('ToubarefaneSiteBundle:Article')->find($id);
- $em->remove($article);
- $em->flush();
-    return $this->indexAction();
-    //return $this->render('ToubarefaneSiteBundle:Site:index.html.twig',array('articles'=>$article));
+    // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+    // Cela permet de protéger la suppression d'article contre cette faille
+    $form = $this->createFormBuilder()->getForm();
+
+    $request = $this->getRequest();
+    if ($request->getMethod() == 'POST') {
+      $form->bind($request);
+
+      if ($form->isValid()) {
+        // On supprime l'article
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+
+        // On définit un message flash
+        $this->get('session')->getFlashBag()->add('info', 'Article bien supprimé');
+
+        // Puis on redirige vers l'accueil
+        return $this->redirect($this->generateUrl('toubarefanesite_accueil'));
+      }
+    }
+
+    // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+    return $this->render('ToubarefaneSiteBundle:Site:supprimer.html.twig', array(
+      'article' => $article,
+      'form'    => $form->createView()
+    ));
   }
 
   // On modifie voirAction, car elle existe déjà
@@ -166,6 +218,24 @@ $contenu = $this->renderView('ToubarefaneSiteBundle:Site:email.txt.twig', array(
 
 // Ajoutez cette méthode ajouterAction :
   
-
-
+public function headAction()
+  {
+    
+   $image=array('url'=>'http://uploads.siteduzero.com/icones/478001_479000/478657.png');
+  return $this->render('::layout.html.twig', array(
+    'image' => $image
+  ));
+    
+  
+  }
+public function footAction()
+  {
+    
+    
+  return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
+    'image' => $image
+  ));
+    
+  
+  }
 }

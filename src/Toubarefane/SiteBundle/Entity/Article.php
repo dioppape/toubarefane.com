@@ -54,11 +54,43 @@ class Article
    */
   private $publication;
 
-  // Et modifions le constructeur pour mettre cet attribut publication à true par défaut
+  /**
+   * @ORM\Column(type="date", nullable=true)
+   */
+  private $dateEdition;
+  
+ 
+  /**
+   * @ORM\OneToOne(targetEntity="Toubarefane\SiteBundle\Entity\Image", cascade={"persist", "remove"})
+   */
+  private $image;
+
+  /**
+   * @ORM\ManyToMany(targetEntity="Toubarefane\SiteBundle\Entity\Categorie", cascade={"persist"})
+   */
+  private $categories;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Toubarefane\SiteBundle\Entity\Commentaire", mappedBy="article")
+   */
+  private $commentaires; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
+
+
   public function __construct()
   {
-    $this->date = new \Datetime();
-    $this->publication = true;
+    $this->date     = new \Datetime;
+    $this->publication  = true;
+    $this->categories   = new \Doctrine\Common\Collections\ArrayCollection();
+    $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+  }
+  
+  /**
+   * @ORM\preUpdate
+   * Callback pour mettre à jour la date d'édition à chaque modification de l'entité
+   */
+  public function updateDate()
+  {
+    $this->setDateEdition(new \Datetime());
   }
     /**
      * Get id
@@ -183,5 +215,117 @@ class Article
     public function getPublication()
     {
         return $this->publication;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Toubarefane\SiteBundle\Entity\Image $image
+     * @return Article
+     */
+    public function setImage(\Toubarefane\SiteBundle\Entity\Image $image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Toubarefane\SiteBundle\Entity\Image 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set dateEdition
+     *
+     * @param \DateTime $dateEdition
+     * @return Article
+     */
+    public function setDateEdition($dateEdition)
+    {
+        $this->dateEdition = $dateEdition;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateEdition
+     *
+     * @return \DateTime 
+     */
+    public function getDateEdition()
+    {
+        return $this->dateEdition;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Toubarefane\SiteBundle\Entity\Categorie $categories
+     * @return Article
+     */
+    public function addCategory(\Toubarefane\SiteBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Toubarefane\SiteBundle\Entity\Categorie $categories
+     */
+    public function removeCategory(\Toubarefane\SiteBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * Add commentaires
+     *
+     * @param \Toubarefane\SiteBundle\Entity\Commentaire $commentaires
+     * @return Article
+     */
+    public function addCommentaire(\Toubarefane\SiteBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires[] = $commentaires;
+    
+        return $this;
+    }
+
+    /**
+     * Remove commentaires
+     *
+     * @param \Toubarefane\SiteBundle\Entity\Commentaire $commentaires
+     */
+    public function removeCommentaire(\Toubarefane\SiteBundle\Entity\Commentaire $commentaires)
+    {
+        $this->commentaires->removeElement($commentaires);
+    }
+
+    /**
+     * Get commentaires
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCommentaires()
+    {
+        return $this->commentaires;
     }
 }
