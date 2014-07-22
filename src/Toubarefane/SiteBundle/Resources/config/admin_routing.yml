@@ -1,0 +1,65 @@
+# src/Toubarefane/SiteBundle/Resources/config/routing.yml
+toubarefaneadmin_login:
+    path:      /accueil
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:login }
+   
+toubarefaneadmin_accueil:
+    path:      /{page}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:index, page: 1 }
+    requirements:
+        page:  \d*
+
+toubarefaneadmin_voir:
+    path:      /article/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:voir }
+    requirements:
+        id:  \d+
+toubarefaneadmin_voirtous:
+    path:      /articles
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:voirtous }
+toubarefaneadmin_ajouter:
+    path:      /ajouter
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouter }
+
+toubarefaneadmin_modifier:
+    path:      /modifier/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifier }
+    requirements:
+        id:  \d+
+
+toubarefaneadmin_supprimer:
+    path:      /supprimer/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimer }
+    requirements:
+        id:  \d+
+toubarefaneadmin_sendMail:
+    path:      /sendMail/{pseudo}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:sendMail }
+    requirements:
+        id:  \d+    
+toubarefaneadmin_contact:
+    path:      /contact
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:contact }
+toubarefanephoto_ajouter:
+    path:      /ajouter_photo
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:ajouter }
+
+toubarefanephoto_voir:
+    path:      /voir_photo/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voir }
+    requirements:
+        id:  \d+
+toubarefanephoto_tous:
+    path:      /photo/tous
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voirtous }
+toubarefanephoto_supprimer:
+    path:      /supprimer_photo/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimer }
+    requirements:
+        id:  \d+
+toubarefaneaudio_ajouter:
+    path:      /ajouter_audio
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:ajouter }
+toubarefanevideo_ajouter:
+    path:      /ajouter_video
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:ajouter }

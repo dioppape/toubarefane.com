@@ -1,0 +1,27 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Tous les videos - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+ <div id="content"> 
+      <div class="gallery">
+      <h2>Latest Gallery Pics</h2>
+      <ul>
+ 
+  {# On vérifie qu'une video soit bien associée à l'article #}
+  
+          {% for videos in videos %}
+        <li>{{ videos.embeded | raw }}
+          
+        </li>
+         {% endfor %}  
+      </ul>
+    </div>
+     
+   
+ </div>
+{% endblock %}

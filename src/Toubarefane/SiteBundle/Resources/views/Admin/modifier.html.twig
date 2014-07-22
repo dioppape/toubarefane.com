@@ -1,0 +1,22 @@
+{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Modifier un article - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+
+  <h2>Modifier un article</h2>
+
+  {% include "ToubarefaneSiteBundle:Site:formulaire.html.twig" %}
+
+  <p>
+    Vous éditez un article déjà existant,
+    ne le changez pas trop pour éviter
+    aux membres de ne pas comprendre
+    ce qu'il se passe.
+  </p>
+
+{% endblock %}

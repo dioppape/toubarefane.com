@@ -1,0 +1,7 @@
+parameters:
+#    toubarefane_user.example.class: Toubarefane\UserBundle\Example
+
+services:
+#    toubarefane_user.example:
+#        class: %toubarefane_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

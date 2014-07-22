@@ -1,0 +1,148 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>{% block title %}Toubarefane{% endblock %}</title>
+
+    {% block stylesheets %}
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+    {% endblock %}
+  </head>
+
+  <body>
+    <div class="container">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>&nbsp; <a href="{{ path('fos_user_profile_show') }}">Mon profil</a>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+{% endif %}
+      <div id="header" class="hero-unit">
+        
+          <p><img src="{{asset('img/logo_toubarefane_com.png')}}" width="150" /><img src="{{asset('img/toubarefane.png')}}" width="500"/><img src="{{asset('img/logo_toubarefane_com.png')}}" width="150" /></p>
+          <p> Vous pouvez créer des articles,les commenter, écouter des khassaides et voir des photos</p>
+         
+          <ul class="menu menuh">
+          <li><a  href="{{ path('toubarefanesite_accueil') }}">
+                Accueil »
+              </a>
+          </li>
+         
+          <li><a  href="{{ path('toubarefanesite_accueil') }}"> Categories »</a>
+                  <ul class="menu menuv">
+                    <li><a  href="">Religion</a></li>
+                    <li><a href="">Communauté Rurale</a></li>
+                    <li><a href="">Social</a></li>
+                  </ul>
+           </li>
+         <li>
+             <a  href="">
+          Articles »
+            </a>
+          </li>
+          <li>
+             <a  href="">
+          Videos »
+            </a>
+             <ul class="menu menuv">
+                   
+                    <li><a href="{{ path('toubarefanevideo_ajouter') }}">Ajouter</a></li>
+                  </ul>
+          </li>
+          <li>
+            <a  href="{{ path('toubarefanephoto_tous') }}">
+            Photos »
+            </a>
+              <ul class="menu menuv">
+                    <li><a  href="{{ path('toubarefanephoto_tous') }}">Les plus populaires</a></li>
+                    <li><a href="{{ path('toubarefanephoto_tous') }}">Nouvelles photos</a></li>
+                    <li><a href="{{ path('toubarefanephoto_ajouter') }}">Ajouter</a></li>
+                  </ul>
+          </li>
+          <li>
+            <a  href="{{ path('toubarefaneaudio_tous') }}">
+            Audios »
+            </a>
+              <ul class="menu menuv">
+                    <li><a  href="{{ path('toubarefaneaudio_kh') }}">khassidas</a></li>
+                    <li><a href="{{ path('toubarefaneaudio_tous') }}">Nouvelles photos</a></li>
+                    <li><a href="{{ path('toubarefaneaudio_ajouter') }}">Ajouter</a></li>
+                  </ul>
+          </li>
+         </ul>
+        
+      </div>
+     
+      <div class="row">
+          
+        <div id="menu" class="span3">
+          <h3>ToubaRefane.com</h3>
+          
+           <div id="menu_dynamique">
+      <ul>
+        <li class="end first"><a href="{{ path('toubarefanesite_accueil') }}">Accueil </a></li>
+        <li class="extend">
+          <a href="{{ path('toubarefanesite_ajouter') }}">Conseil Rurale</a>
+          <ul>
+            <li class="extend first">
+              <a href="#">Zone de Réfane</a>
+              <ul>
+                <li class="end first"><a href="#">Présentation</a></li>
+                <li class="end"><a href="{{ path('toubarefanesite_ajouter') }}">Education</a></li>
+                <li class="end"><a href="{{ path('toubarefanesite_accueil') }}">Santé</a></li>
+                <li class="end"><a href="{{ path('toubarefanesite_accueil') }}">Politique</a></li>
+                <li class="end"><a href="{{ path('toubarefanesite_accueil') }}">Religion</a></li>
+                <li class="extend last">
+                  <a href="#">Réalisation</a>
+                  <ul>
+                    <li class="end first"><a href="#">partie 1</a></li>
+                    <li class="end"><a href="#">partie 2</a></li>
+                    <li class="end"><a href="#">partie 3</a></li>
+                    <li class="end last"><a href="#">partie 4</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="end"><a href="#">Zone de Réo Mao</a></li>
+            <li class="end last"><a href="#">Zone de Ndéreppe</a></li>
+          </ul>
+        </li>
+        <li class="extend">
+          <a href="{{ path('toubarefanesite_ajouter') }}">Articles</a>
+          <ul>
+            <li class="end first"><a href="{{ path('toubarefaneadmin_ajouter') }}">Ajouter un article</a></li>
+            <li class="end last"><a href="{{ path('toubarefaneadmin_voirtous') }}">Lire des articles</a></li>
+          </ul>
+        </li>
+        <li class="end"><a href="#">Videos</a></li>
+        <li class="end"><a href="#">Photos</a></li>
+        <li class="end"><a href="#">Forum</a></li>
+        <li class="end"><a href="#">Partenariat</a></li>
+        <li class="end last"><a href="{{ path('toubarefanesite_contact') }}">Contact</a></li>
+      </ul>
+    </div>          
+          {{ render(controller("ToubarefaneSiteBundle:Site:menu", {'nombre': 3})) }}
+        </div>
+        <div id="content" class="span9">
+          {% block body %}
+          {% endblock %}
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>Toubarefane © 2014</p>
+      </footer>
+    </div>
+
+  {% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+  {% endblock %}
+
+  </body>
+</html>

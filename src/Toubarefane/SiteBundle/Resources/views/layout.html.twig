@@ -9,7 +9,9 @@
 {% block body %}
 
   {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-  <h1>Site</h1>
+  {% if chemin is not null %}
+    {{ chemin }}
+  {% endif %}
 
   <hr>
 

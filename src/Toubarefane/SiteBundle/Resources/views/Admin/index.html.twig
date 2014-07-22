@@ -1,0 +1,91 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/index.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+{#
+  <h2>Liste des articles disp</h2>
+
+  <p>
+    {% for article in articles %}
+      <ol>
+        <a href="{{ path('toubarefanesite_voir', {'id': article.id}) }}">{{ article.titre }}</a>
+        par {{ article.auteur }},
+        le {{ article.date|date('d/m/Y') }}
+      </ol>
+      <h3>audio<audio src="{{asset('audio/mafatih.mp3')}}" controls width="100" height="50"></audio></h3>
+      <h3>video<video src="{{asset('video/HDKH.mp4')}}" controls width="200" height="150"></video></h3>
+    {% else %}
+      <li>Pas (encore !) d'articles</li>
+    {% endfor %}
+  </p>#}<div id="content">
+  
+  <div id="featured_post">
+
+   <p>
+  {# On vérifie qu'une image soit bien associée à l'article #}
+       {% for article in articles %}
+{% if loop.first %}
+    <img src="{{ asset(article.image.uploadDir ~ '/' ~article.image.url ) }}"  alt="{{ article.image.alt }}" />
+  
+
+    {{ article.titre }}
+  </p>
+  <i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
+
+  <p>
+    {{ article.contenu }}
+  </p>
+{% endif %}
+  {% endfor %}
+  </div>
+      <div id="hpage_latest">
+        <ul>
+                   {% for article in articles %}
+          <li><img src="{{ asset(article.image.uploadDir ~ '/' ~article.image.url ) }}" alt="{{ article.image.alt }}" />
+            <p> {{ article.contenu }}</p>
+            <p class="readmore"><a href="{{ asset(article.image.uploadDir ~ '/' ~article.image.url ) }}">Continue Reading &raquo;</a></p>
+          </li>
+            {% endfor %}
+         
+        </ul>
+        <br class="clear" />
+      </div>
+  </div>
+  <div id="column">
+      <ul id="latestnews">
+        <li><object type="application/x-shockwave-flash" width="100" height="100"data="http://www.youtube.com/v/hYnqTNntGxU&hl=fr_FR&fs=1&"><param name="movie" value="http://www.youtube.com/v/hYnqTNntGxU&hl=fr_FR&fs=1&" /><param name="allowfullscreen" value="true" /></object>
+          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
+        </li>
+        <li> <img><iframe width="80" height="80" src="//www.youtube.com/embed/CauSfXqq_ho?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>&nbsp;<br>
+          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
+        </li>
+        <li><img src="{{ asset('images/demo/80x80.gif') }}" alt="" />
+          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
+        </li>
+        <li><img src="{{ asset('images/demo/80x80.gif') }}" alt="" />
+          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
+        </li>
+        <li class="last"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" />
+          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
+        </li>
+      </ul>
+    </div>
+  {#
+<div class="pagination">
+    <ul>
+      {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b 
+      {% for p in range(1, nombrePage) %}
+        <li{% if p == page %} class="active"{% endif %}>
+          <a href="{{ path('toubarefanesite_accueil', {'page': p}) }}">{{ p }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+#}
+{% endblock %}
+   

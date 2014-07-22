@@ -1,0 +1,23 @@
+{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Modifier un audio - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+
+  <h2>Ajoutr un audio</h2>
+
+  {% include "ToubarefaneSiteBundle:Admin:formulaire.html.twig" %}
+
+  <p>
+    Vous éditez un article déjà existant,
+    ne le changez pas trop pour éviter
+    aux membres de ne pas comprendre
+    ce qu'il se passe.
+  </p>
+
+ 
+{% endblock %}

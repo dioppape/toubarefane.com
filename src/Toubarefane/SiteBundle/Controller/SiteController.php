@@ -10,7 +10,7 @@ use Toubarefane\SiteBundle\Entity\Article;
 use Toubarefane\SiteBundle\Form\ImageType;
 use Toubarefane\SiteBundle\Form\ArticleType;
 use Toubarefane\SiteBundle\Form\ArticleEditType;
-use Toubarefane\SiteBundle\Form\CategorieType;
+use Toubarefane\SiteBundle\Form\ContactType;
 class SiteController extends Controller
 {
   public function indexAction($page)
@@ -40,10 +40,11 @@ $text='http://tb.com refane@live.fr ';
   {
     throw $this->createNotFoundException('Article inexistant.');
   }
-    
+    $chemin='Accueils>>';
     // Mais pour l'instant, on ne fait qu'appeler le template
     return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
     'articles' => $articles,
+      'chemin'       => $chemin,
       'page'       => $page,
       'nombrePage' => ceil(count($articles)/3)
 
@@ -77,7 +78,8 @@ $text='http://tb.com refane@live.fr ';
   }
   public function voirAction($id)
   {
-     // On récupère le repository
+    $chemin="Article>> voir";
+      // On récupère le repository
   $repository = $this->getDoctrine()
                      ->getManager()
                      ->getRepository('ToubarefaneSiteBundle:Article');
@@ -94,16 +96,60 @@ $text='http://tb.com refane@live.fr ';
   }
     
   return $this->render('ToubarefaneSiteBundle:Site:voir.html.twig', array(
+    'chemin'       => $chemin,
     'article' => $article
   ));
     
   
   }
+  public function voirtousAction()
+  {
+    $chemin="Article>> voir"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $article = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:voirtous.html.twig', array(
+      'chemin'       => $chemin,
+    'articles' => $article
+  ));
+    
   
+  }
+  public function albumAction()
+  {
+    $chemin="Album>> voir"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Album');
+
+  // On récupère l'entité correspondant à l'id $id
+  $album = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:album.html.twig', array(
+      'chemin'       => $chemin,
+    'album' => $album
+  ));
+    
+  
+  }
   public function ajouterAction()
   {
-     $article = new Article;
+     
 
+     $article = new Article;
+     $chemin="Artcle>> ajouter";
     // On crée le formulaire grâce à l'ArticleType
     $form = $this->createForm(new ArticleType(), $article);
 
@@ -118,10 +164,13 @@ $text='http://tb.com refane@live.fr ';
       // On vérifie que les valeurs entrées sont correctes
       // (Nous verrons la validation des objets en détail dans le prochain chapitre)
       if ($form->isValid()) {
-        // On enregistre notre objet $article dans la base de données
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($article);
-        $em->flush();
+  // Ici : On traite manuellement le fichier uploadé
+  $article->getImage()->upload();
+
+  // Puis, le reste de la méthode, qu'on avait déjà fait
+  $em = $this->getDoctrine()->getManager();
+  $em->persist($article);
+  $em->flush();
 
         // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', 'Article bien ajouté');
@@ -130,14 +179,14 @@ $text='http://tb.com refane@live.fr ';
         return $this->redirect($this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())));
       }
     }
-    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('form' => $form->createView()));
+    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('chemin'=> $chemin,'form' => $form->createView()));
   }
   
  public function modifierAction(Article $article)
   {
     // On utiliser le ArticleEditType
     $form = $this->createForm(new ArticleEditType(), $article);
-
+    $chemin="Article>> modifier";
     $request = $this->getRequest();
 
     if ($request->getMethod() == 'POST') {
@@ -158,7 +207,7 @@ $text='http://tb.com refane@live.fr ';
 
     return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig', array(
       'form'    => $form->createView(),
-      
+      'chemin'       => $chemin,
     ));
   }
 
@@ -167,7 +216,7 @@ $text='http://tb.com refane@live.fr ';
     // On crée un formulaire vide, qui ne contiendra que le champ CSRF
     // Cela permet de protéger la suppression d'article contre cette faille
     $form = $this->createFormBuilder()->getForm();
-
+    $chemin="Article>> supprimer";
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
       $form->bind($request);
@@ -189,6 +238,7 @@ $text='http://tb.com refane@live.fr ';
     // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
     return $this->render('ToubarefaneSiteBundle:Site:supprimer.html.twig', array(
       'article' => $article,
+        'chemin'       => $chemin,
       'form'    => $form->createView()
     ));
   }
@@ -238,4 +288,48 @@ public function footAction()
     
   
   }
+   public function contactAction()
+    {
+        $form = $this->get('form.factory')->create(new ContactType());
+
+         // Get the request
+        $request = $this->get('request');
+    $message=null;
+    $chemin="Contact>>";
+        // Check the method
+        if ($request->getMethod() == 'POST')
+        {
+            // Bind value with form
+            $form->bind($request);
+
+            $data = $form->getData();
+
+            $message = \Swift_Message::newInstance()
+                ->setContentType('text/html')
+                ->setSubject($data['sujet'])
+                ->setFrom($data['email'])
+                ->setTo('diopref@gmail.com')
+                ->setBody($data['contenu']);
+
+            $this->get('mailer')->send($message);
+            $message='Merci de nous avoir contacté, nous répondrons à vos questions dans les plus brefs délais.';
+            // Launch the message flash
+            $this->get('session')->getFlashBag()->add('notice', 'Merci de nous avoir contacté, nous répondrons à vos questions dans les plus brefs délais.');
+            return $this->render('ToubarefaneSiteBundle:Site:contact.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'chemin'       => $chemin,
+                    'message'=> $message
+                ));
+        }
+
+        return $this->render('ToubarefaneSiteBundle:Site:contact.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'chemin'       => $chemin,
+                    'message'=> $message
+                ));
+
+    }
+
 }

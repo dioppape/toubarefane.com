@@ -11,7 +11,12 @@ toubarefanesite_voir:
     defaults:  { _controller: ToubarefaneSiteBundle:Site:voir }
     requirements:
         id:  \d+
-
+toubarefanesite_album:
+    path:      /album
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:album }
+toubarefanesite_voirtous:
+    path:      /articles
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:voirtous }
 toubarefanesite_ajouter:
     path:      /ajouter
     defaults:  { _controller: ToubarefaneSiteBundle:Site:ajouter }
@@ -31,4 +36,33 @@ toubarefanesite_sendMail:
     path:      /sendMail/{pseudo}
     defaults:  { _controller: ToubarefaneSiteBundle:Site:sendMail }
     requirements:
-        id:  \d+        
+        id:  \d+    
+toubarefanesite_contact:
+    path:      /contact
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:contact }
+toubarefanephoto_ajouter:
+    path:      /ajouter_photo
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:ajouter }
+
+toubarefanephoto_voir:
+    path:      /voir_photo/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voir }
+    requirements:
+        id:  \d+
+toubarefanephoto_tous:
+    path:      /photo/tous
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voirtous }
+toubarefanephoto_supprimer:
+    path:      /supprimer_photo/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:supprimer }
+    requirements:
+        id:  \d+
+toubarefaneaudio_tous:
+    path:      /audios
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:voirtous }
+toubarefaneaudio_kh:
+    path:      /audio/khassidas
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:voirkhassida }
+toubarefanevideo_kh:
+    path:      /video/khassidas
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:voirtous }

@@ -1,0 +1,19 @@
+{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Contact - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+  {% if message is not null %}
+    {{ message }}
+  {% endif %}
+<div class="well">
+  <form method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <input type="submit" value="envoyer" class="btn btn-primary" />
+  </form>
+</div>
+  {% endblock %}

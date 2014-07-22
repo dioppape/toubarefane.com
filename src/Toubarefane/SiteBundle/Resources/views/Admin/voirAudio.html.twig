@@ -1,0 +1,14 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Lecture d'un article - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+
+{% if image is not null %}
+    <img src="{{ asset(image.uploadDir ~ '/' ~ image.url) }}" alt="{{ image.alt }}" />
+  {% endif %}
+{% endblock %}

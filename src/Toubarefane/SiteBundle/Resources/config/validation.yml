@@ -1,0 +1,6 @@
+# src/Toubarefane/SiteBundle/Ressources/config/validation.yml
+
+src\Toubarefane\SiteBundle\Entity\Contact:
+    getters:
+        subjectValid:
+            - "True": { message: "Le sujet ne doit pas être vide." }

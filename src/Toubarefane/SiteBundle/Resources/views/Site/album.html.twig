@@ -1,0 +1,30 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Tous les photos - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+ <div id="content"> 
+      <div class="gallery">
+      <h2>Albums</h2>
+      <ul>
+ {% for album in album %}
+  {# On vérifie qu'une image soit bien associée à l'article #}
+  {% if album is not null %}
+  <li><a href="{{ path('toubarefanephoto_tous')}}">    
+   <img
+  src="{{ album.url }}"
+  nom="{{ album.nom }}"   
+/>
+      </a></li>
+  {% endif %}
+     
+   
+{% endfor %}
+       </ul>
+      </div>
+ </div>
+{% endblock %}

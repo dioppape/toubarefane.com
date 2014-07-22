@@ -6,9 +6,9 @@ parameters:
     database_name: toubarefane_bd
     database_user: root
     database_password: null
-    mailer_transport: smtp
-    mailer_host: null
-    mailer_user: null
-    mailer_password: null
-    locale: en
+    locale: fr
     secret: 27b4ce87105ea7635d329fd8547382a71
+    mailer_transport: gmail
+    mailer_host: null
+    mailer_user: diopref@gmail.com
+    mailer_password: diop2011
