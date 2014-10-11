@@ -43,7 +43,7 @@ class AudioController extends Controller
         $this->get('session')->getFlashBag()->add('info', 'image bien ajouté');
 
         // On redirige vers la page de visualisation de l'article nouvellement créé
-        return $this->redirect($this->generateUrl('toubarefaneaudio_kh'));
+        return $this->redirect($this->generateUrl('toubarefaneaudio_ajouter'));
       }
     }
     return $this->render('ToubarefaneSiteBundle:Admin:audio.html.twig',array('chemin'=> $chemin,'form' => $form->createView()));
@@ -75,6 +75,7 @@ class AudioController extends Controller
     
   
   }
+  
   public function voirtousAction()
   {
     $chemin="Audio>> tous"; 
@@ -99,7 +100,7 @@ class AudioController extends Controller
   
  public function voirkhassidaAction()
   {
-    $chemin="Audio>> Khasssida"; 
+    $chemin="Audio>> Kourel"; 
 // On récupère le repository
   $repository = $this->getDoctrine()
                      ->getManager()
@@ -112,6 +113,91 @@ class AudioController extends Controller
 
     
   return $this->render('ToubarefaneSiteBundle:Site:audiokhassida.html.twig', array(
+      'chemin'       => $chemin,
+    'audios' => $audios
+  ));
+    
+  
+  }
+  
+  public function audioradiasAction()
+  {
+    $chemin="Audio>> Radias"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio');
+
+  // On récupère l'entité correspondant à l'id $id
+  $audios = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:audioRadias.html.twig', array(
+      'chemin'       => $chemin,
+    'audios' => $audios
+  ));
+    
+  
+  }
+  public function audiosegnesamAction()
+  {
+    $chemin="Audio>> SegneSam"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio');
+
+  // On récupère l'entité correspondant à l'id $id
+  $audios = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:audioSegnesam.html.twig', array(
+      'chemin'       => $chemin,
+    'audios' => $audios
+  ));
+    
+  
+  }
+  public function audiocoranAction()
+  {
+    $chemin="Audio>> Coran"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio');
+
+  // On récupère l'entité correspondant à l'id $id
+  $audios = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:audioCoran.html.twig', array(
+      'chemin'       => $chemin,
+    'audios' => $audios
+  ));
+    
+  
+  }
+  public function audiowakhtaneAction()
+  {
+    $chemin="Audio>> Wakhtane"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio');
+
+  // On récupère l'entité correspondant à l'id $id
+  $audios = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:audioWakhtane.html.twig', array(
       'chemin'       => $chemin,
     'audios' => $audios
   ));

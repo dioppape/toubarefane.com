@@ -9,7 +9,7 @@
 
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('styles/layout.css') }}" type="text/css" />
-      <link rel="stylesheet" type="text/css" href="{{ asset('lecteuraudio/css/jquery.jscrollpane.css') }}" media="all" />
+      
       <link rel="stylesheet" type="text/css" href="{{ asset('lecteuraudio/css/html5audio.css') }}" />
         
     {% endblock %}
@@ -17,66 +17,77 @@
   </head>
 
   <body>
-<div class="wrapper col1">
+  <div id="site-container">
   <div id="header">
-    <div class="fl_left">
-       <p><img src="{{asset('img/logo_toubarefane_com.png')}}" width="150" />
-      <h1><a href="#">Bienvenue</a></h1>
-      <p>sur ToubaRefane.com</p>
-    </div>
-      <div class="fl_center">
-        <p><a href="#"><img src="{{ asset('img/khalif.jpg')}}"  width="200" height="100" alt="" /></a>
-      </div>
-        <div class="fl_center">
-       <a href="#"><img src="{{ asset('img/mosque.gif')}}"  width="200" height="100" alt="" /></a>
-        </div>
-       <div class="fl_center">
-       <a href="#"><img src="{{ asset('img/khalif.jpg')}}"  width="200" height="100" alt="" /></a>
-    </p> 
-     
-    
-    </div>
-    <div class="fl_right">
-        <p><a href="#"><img src="{{ asset('img/logo_toubarefane_com.png')}}" width="150" alt="" /></a>
-    </p>
-    </div>
-   
+    <ul>
+          <li class="fl_left">
+          </li>
+          <li class="fl_center">
+          </li>
+          <li class="fl_right">
+          </li>
+        </ul>
       <br class="clear" />
+      <p align="center"><marquee><h1>&nbsp;&nbsp;&nbsp;واجعل قلوبنا على التّوادد  بلا تنازع ولا تحاسد &nbsp;&nbsp;&nbsp;&nbsp;</h1></marquee></p>
+    
   </div>
-</div>
+
 <!-- ####################################################################################################### -->
-<div class="wrapper col2">
+<div class="wrapperm col2">
   <div id="topbar">
     <div id="topnav">
       <ul>
         <li class="active"><a href="{{ path('toubarefanesite_accueil')}}">Accueil</a></li>
-        <li><a href="{{ path('toubarefanesite_accueil')}}">Actualités</a></li>
-        <li><a href="{{ path('toubarefanesite_album')}}">Photos</a></li>
-        <li><a href="{{ path('toubarefaneaudio_tous')}}">Audios</a>
+        <li><a href="#">Audios</a>
           <ul>
-            <li><a href="{{ path('toubarefaneaudio_kh')}}">Khassida</a></li>
-            <li><a href="#">Wakhtaane</a></li>
-            <li><a href="#">Kham Kham</a></li>
+            <li><a href="{{ path('toubarefaneaudio_kh')}}">Kourel</a></li>
+            <li><a href="{{ path('toubarefaneaudio_radias')}}">Radias</a></li>
+            <li><a href="{{ path('toubarefaneaudio_coran')}}">Coran</a></li>
+            <li><a href="{{ path('toubarefaneaudio_wakhtane')}}">Wakhtane</a></li>
+            <li><a href="{{ path('toubarefaneaudio_segnesam')}}">Serigne Sam Mbaye</a></li>
           </ul>
         </li>
-        <li><a href="{{ path('toubarefanephoto_tous')}}">Videos</a>
+        <li><a href="#">Videos</a>
           <ul>
             <li><a href="{{ path('toubarefanevideo_kh')}}">Khassida</a></li>
-            <li><a href="#">Magal</a></li>
-            <li><a href="#">Divres</a></li>
+            <li><a href="#">Wakhtane</a></li>
+            <li><a href="#">Autres Vidéos</a></li>
           </ul>
         </li>
+         <li><a href="{{ path('toubarefanesite_album')}}">Photos</a></li>
+           <li class="last"><a href="{{ path('toubarefanesite_magaltoubarefane')}}">Magal de Touba Refane</a></li>
+          <li class="last"><a href="{{ path('toubarefanesite_almouridiya')}}">Al Mouridiyyah</a></li>
         <li class="last"><a href="{{ path('toubarefanesite_contact')}}">Contact</a></li>
       </ul>
     </div>
+       {#
     <div id="search">
       <form action="#" method="post">
         <fieldset>
           <legend>Recherche</legend>
-          <input type="text" value="Rechercher&hellip;"  onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
+          <input type="text" value="Rechercher"  onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
           <input type="submit" name="go" id="go" value="Rechercher" />
         </fieldset>
       </form>
+    </div>
+#}
+      <div id="suivre">
+          <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+         
+          <div class="fb-like" data-href="http://www.toubarefane.com/accueil/video" data-layout="button_count" data-type="icon" data-action="like" data-show-faces="true" data-share="true"></div>
+           <div class="twitter"><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+<a href="http://www.toubarefane.com/accueil/video" class="twitter-share-button">Tweet</a>
+
+</div>
+           
+            
     </div>
     <br class="clear" />
   </div>
@@ -97,9 +108,9 @@
 </div>
 
 <!-- ####################################################################################################### -->
-<div class="wrapper col6">
+<div class="wrappers col6">
   <div id="footer">
-    <div class="footbox twitter">
+    {# <div class="footbox twitter">
       <h2>Latest From Twitter</h2>
       <ul>
         <li><a href="#">@TwitterName</a> nibhpede faucibulum ris phasellentum elit sed hend quisque.  1 day ago</li>
@@ -145,15 +156,32 @@
     <br class="clear" />
   </div>
 </div>
+#}
+ <div id="menuhaut">
+    <ul>
+          <li>
+              <a href="{{ path('toubarefaneaudio_kh')}}">Forum</a>
+          </li>
+            
+          <li>
+              <a href="{{ path('toubarefaneaudio_kh')}}">TV</a>
+          </li>
+          <li>
+              <a href="{{ path('toubarefaneaudio_kh')}}">Radio</a>
+          </li>
+        </ul>
+     
+  </div>
 <!-- ####################################################################################################### -->
-<div class="wrapper col7">
+<div class="wrapperc col7">
   <div id="copyright">
-    <p class="fl_left">Copyright &copy; 2011 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    <p class="fl_left">Copyright &copy; 2014 - All Rights Reserved - <a href="#">toubarefane.com</a></p>
+    <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">diopref</a></p>
     <br class="clear" />
   </div>
     
 </div>
+  </div>
 {% block javascripts %}
     {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
     
@@ -167,5 +195,6 @@
         <script type="text/javascript" src="{{ asset('js/jquery.apTextScroller.min.js') }}"></script>
        
   {% endblock %}
+        
 </body>
 </html>

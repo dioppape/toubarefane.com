@@ -10,10 +10,24 @@
   {% if message is not null %}
     {{ message }}
   {% endif %}
-<div class="well">
+  <div id="contact">
+      <h2>Nous contactez</h2>
+      <div id="tel">
+       <h1>Pour tous suggestions et informations</h1>
+       <p>Tel: 0033619462854</p>
+       <p>Tel: 0033644046658</p>
+       <p>Email: info@toubarefane.com</p>
+       <p>ou refane@live.fr</p>
+      </div>
+
+<div id="mail">
+    <h1>Envoyer vos messages ici</h1>
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <input type="submit" value="envoyer" class="btn btn-primary" />
   </form>
+ </p>
 </div>
+ 
+  </div>
   {% endblock %}

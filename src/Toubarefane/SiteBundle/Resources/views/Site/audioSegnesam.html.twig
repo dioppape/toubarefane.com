@@ -1,0 +1,40 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Tous les audios khassidas - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+  
+	
+<audio id="audio" preload="auto" tabindex="0" controls="" >
+  <source id="primarysrc" src="">
+  Your Fallback goes here
+</audio>
+ 
+ 
+<ul id="playlist">
+       
+        {% for audios in audios %}
+        
+            {% set nav = true %}
+        {% if audios.alt =="segnesam" %}
+          <li>
+            <a href="{{ asset(audios.uploadDir ~ '/' ~ audios.url) }}">
+               {{ audios.url }}
+            </a>
+          </li>
+            {% endif %}
+        
+         {% endfor %}
+         
+    </ul>
+
+	
+   
+
+
+{% endblock %}
+        

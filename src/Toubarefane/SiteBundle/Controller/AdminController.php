@@ -91,7 +91,7 @@ $text='http://tb.com refane@live.fr ';
     throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
   }
     
-  return $this->render('ToubarefaneSiteBundle:Site:voir.html.twig', array(
+  return $this->render('ToubarefaneSiteBundle:Admin:voir.html.twig', array(
     'chemin'       => $chemin,
     'article' => $article
   ));

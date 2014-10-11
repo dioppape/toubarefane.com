@@ -9,15 +9,14 @@
 {% block toubarefanesite_body %}
  <div id="content"> 
       <div class="gallery">
-      <h2>Latest Gallery Pics</h2>
+      <h2>Khassaides</h2>
       <ul>
  
   {# On vérifie qu'une video soit bien associée à l'article #}
   
           {% for videos in videos %}
-        <li>{{ videos.embeded | raw }}
-          
-        </li>
+          <li>{{ videos.embeded | raw }}<p><h1> {{ videos.alt}}</h1></p></li>
+      
          {% endfor %}  
       </ul>
     </div>

@@ -43,6 +43,17 @@
 {% endif %}
   {% endfor %}
   </div>
+  <div><div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-href="http://toubarefane.com" data-numposts="5" data-colorscheme="light"></div>
+  </div>
+       {#
       <div id="hpage_latest">
         <ul>
                    {% for article in articles %}
@@ -55,27 +66,16 @@
         </ul>
         <br class="clear" />
       </div>
+#}
   </div>
   <div id="column">
       <ul id="latestnews">
-        <li><iframe width="220" height="215" src="//www.youtube.com/embed/0l_XN0n8-hE" frameborder="0" allowfullscreen></iframe>
-          
-        </li>
-        <strong><a href="#">Magal 2013 Ht</a></strong> kourl hizbou tarkhya magal 2013
-        <li> <iframe width="220" height="215" src="//www.youtube.com/embed/5zOCBbLLGis" frameborder="0" allowfullscreen></iframe>
+        
+          <li><br> <iframe width="230" height="200" src="//www.youtube.com/embed/XXtye3imFqs?list=UUseTxi4rhrzw4ugitMZAQCw" frameborder="0" allowfullscreen></iframe>
              </li>
-             <p><strong><a href="#">Magal 2013 htdkh</a></strong> kourl hizbou tarkhya darou khoudoss magal 2013</p>
+             <p><strong><a href="#">Mame Mor Tine</a></strong> Gamou 2014</p>
      
-        <li> <iframe width="220" height="215" src="//www.youtube.com/embed/Cek6JI5x4eM" frameborder="0" allowfullscreen></iframe>
-             </li>
-             <p><strong><a href="#">Magal 2013 htdkh</a></strong> kourl hizbou tarkhya darou khoudoss magal 2013</p>
-     
-        <li><img src="{{ asset('images/demo/80x80.gif') }}" alt="" />
-          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
-        </li>
-        <li class="last"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" />
-          <p><strong><a href="#">Indonectetus facilis leo.</a></strong> Nullamlacus dui ipsum cons eque lobor ttis non euis que morbi penas dapi bulum orna. Urnaul trices quis curabitur.</p>
-        </li>
+       
       </ul>
     </div>
   {#

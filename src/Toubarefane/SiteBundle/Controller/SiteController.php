@@ -13,24 +13,24 @@ use Toubarefane\SiteBundle\Form\ArticleEditType;
 use Toubarefane\SiteBundle\Form\ContactType;
 class SiteController extends Controller
 {
-  public function indexAction($page)
+  public function indexAction()
   {
-     // On récupère le service
+  
+/* On récupère le service
+  
     $antispam = $this->container->get('toubarefane_site.antispam');
 $text='http://tb.com refane@live.fr ';
     // Je pars du principe que $text contient le texte d'un message quelconque
     if ($antispam->isSpam($text)) {
       throw new \Exception('Votre message a été détecté comme spam !');
     }
-
-
     // Ici, on récupérera la liste des articles, puis on la passera au template
   // Les articles :
      // On récupère le repository
   $articles = $this->getDoctrine()
                      ->getManager()
                      ->getRepository('ToubarefaneSiteBundle:Article')
-                     ->getArticles(3,$page);
+                     ->getArticles();
   
 
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
@@ -44,12 +44,11 @@ $text='http://tb.com refane@live.fr ';
     // Mais pour l'instant, on ne fait qu'appeler le template
     return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
     'articles' => $articles,
-      'chemin'       => $chemin,
-      'page'       => $page,
-      'nombrePage' => ceil(count($articles)/3)
+      'chemin'       => $chemin
 
   ));
-
+    */
+return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
   }
   
   public function menuAction($nombre) // Ici, nouvel argument $nombre, on l'a transmis via le render() depuis la vue
@@ -117,6 +116,48 @@ $text='http://tb.com refane@live.fr ';
 
     
   return $this->render('ToubarefaneSiteBundle:Site:voirtous.html.twig', array(
+      'chemin'       => $chemin,
+    'articles' => $article
+  ));
+    
+  
+  }
+    public function magaltoubarefaneAction()
+  {
+    $chemin="Article>> magaltoubarefane"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $article = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:magaltoubarefane.html.twig', array(
+      'chemin'       => $chemin,
+    'articles' => $article
+  ));
+    
+  
+  }
+  public function almouridiyaAction()
+  {
+    $chemin="Article>> tous"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article');
+
+  // On récupère l'entité correspondant à l'id $id
+  $article = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:almouridiya.html.twig', array(
       'chemin'       => $chemin,
     'articles' => $article
   ));

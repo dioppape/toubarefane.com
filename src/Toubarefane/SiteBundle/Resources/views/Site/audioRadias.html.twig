@@ -1,0 +1,41 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Tous les audios khassidas - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+  
+	
+<audio id="audio" preload="auto" tabindex="0" controls="" >
+  <source id="primarysrc" src="http://www.archive.org/download/bolero_69/Bolero.mp3">
+  <source id="secondarysrc" src="http://www.archive.org/download/bolero_69/Bolero.ogg">
+  Your Fallback goes here
+</audio>
+ 
+ 
+<ul id="playlist">
+       
+        {% for audios in audios %}
+        
+            {% set nav = true %}
+        {% if audios.alt =="radias" %}
+          <li>
+            <a href="{{ asset(audios.uploadDir ~ '/' ~ audios.url) }}">
+               {{ audios.url }}
+            </a>
+          </li>
+            {% endif %}
+        
+         {% endfor %}
+         
+    </ul>
+
+	
+   
+
+
+{% endblock %}
+        

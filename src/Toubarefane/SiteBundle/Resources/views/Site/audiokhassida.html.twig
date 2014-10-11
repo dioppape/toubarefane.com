@@ -7,38 +7,33 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
- 
-        <!-- End of audio player script --> <!-- Fin du script du player audio -->   
-         <!-- ############## END HEAD CODE ############## -->
-	</head>
-    
-    
-	<body>  
+  
+	
 <audio id="audio" preload="auto" tabindex="0" controls="" >
-  <source id="primarysrc" src="http://www.archive.org/download/bolero_69/Bolero.mp3">
-  <source id="secondarysrc" src="http://www.archive.org/download/bolero_69/Bolero.ogg">
-  Your Fallback goes here
+  àpmm:<source id="primarysrc" src="">
 </audio>
  
  
 <ul id="playlist">
        
         {% for audios in audios %}
-        <li>
+        
+            {% set nav = true %}
+        {% if audios.alt =="kourel" %}
+          <li>
             <a href="{{ asset(audios.uploadDir ~ '/' ~ audios.url) }}">
-               {{ audios.alt }}
+               {{ audios.url }}
             </a>
-        </li>
+          </li>
+            {% endif %}
+        
          {% endfor %}
-         <li>
-            <a href="{{ asset('audio/mafatih.mp3')}}" data-altsrc="http://www.archive.org/download/CanonInD_261/CanoninD.ogg">
-                jinan
-            </a>
-        </li>
+         
     </ul>
 
-	</body>
+	
    
 
 
 {% endblock %}
+        

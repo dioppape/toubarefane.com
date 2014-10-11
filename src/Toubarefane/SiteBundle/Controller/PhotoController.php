@@ -67,7 +67,7 @@ class PhotoController extends Controller
     throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
   }
     
-  return $this->render('ToubarefaneSiteBundle:Admin:voirPhoto.html.twig', array(
+  return $this->render('ToubarefaneSiteBundle:Site:voirPhoto.html.twig', array(
     'chemin'       => $chemin,
     'image' => $image
   ));

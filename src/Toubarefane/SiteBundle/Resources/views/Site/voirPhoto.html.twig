@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
-
+  <div id="photo" >
 {% if image is not null %}
     <img src="{{ asset(image.uploadDir ~ '/' ~ image.url) }}" alt="{{ image.alt }}" />
   {% endif %}
+  </div>
 {% endblock %}

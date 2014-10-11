@@ -63,6 +63,27 @@ toubarefaneaudio_tous:
 toubarefaneaudio_kh:
     path:      /audio/khassidas
     defaults:  { _controller: ToubarefaneSiteBundle:Audio:voirkhassida }
+toubarefaneaudio_wakhtane:
+    path:      /audio/wakhtane
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiowakhtane }
+toubarefaneaudio_segnesam:
+    path:      /audio/segnesam
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiosegnesam }
+toubarefaneaudio_radias:
+    path:      /audio/radias
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audioradias }
+toubarefaneaudio_coran:
+    path:      /audio/coran
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiocoran }
 toubarefanevideo_kh:
     path:      /video/khassidas
     defaults:  { _controller: ToubarefaneSiteBundle:Video:voirtous }
+toubarefanevideo_ac:
+    path:      /accueil/video
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:index }
+toubarefanesite_almouridiya:
+    path:      /almouridiya
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:almouridiya }
+toubarefanesite_magaltoubarefane:
+    path:      /magaltoubarefane
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:magaltoubarefane }

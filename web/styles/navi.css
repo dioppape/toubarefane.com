@@ -26,26 +26,26 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 #topnav li a:link, #topnav li a:visited, #topnav li a:hover{
 	display:block;
 	margin:0;
-	padding:20px;
-	color:#FFFFFF;
-	background-color:#839B05;
+	padding:10px;
+	color:#000000;
+	background-color:#51a351;
 	text-transform:uppercase;
 	}
 
 #topnav li a:hover, #topnav ul li.active a{
-	color:#FFFFFF;
-	background-color:#000000;
+	color:#000000;
+	background-color:#6d6;
 	}
 	
 #topnav li li a:link, #topnav li li a:visited{
-	width:150px;
+	width:80px;
 	float:none;
 	margin:0;
 	padding:7px 10px;
 	font-size:12px;
 	font-weight:normal;
-	color:#FFFFFF;
-	background-color:#839B05;
+	color:#000000;
+	background-color:#6d6;
 	text-transform:none;
 	}
 	
@@ -60,7 +60,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	position:absolute;
 	left:-999em;
 	height:auto;
-	width:170px;
+	width:80px;
 	border-left:1px solid #839B05;
 	border-bottom:1px solid #839B05;
 	}

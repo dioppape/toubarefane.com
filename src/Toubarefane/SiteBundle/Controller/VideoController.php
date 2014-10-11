@@ -10,7 +10,27 @@ use Toubarefane\SiteBundle\Form\VideoType;
 
 class VideoController extends Controller
 {
-   
+  public function indexAction()
+  {
+   $chemin="Accueil>>Video>>"; 
+// On récupère le repository
+  $repository = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Video');
+
+  // On récupère l'entité correspondant à l'id $id
+  $videos = $repository->findAll();
+
+  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+
+    
+  return $this->render('ToubarefaneSiteBundle:Site:videoaccueil.html.twig', array(
+      'chemin'       => $chemin,
+    'videos' => $videos
+  ));
+    
+  
+  }
   public function ajouterAction()
   {
      
