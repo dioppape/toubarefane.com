@@ -43,11 +43,9 @@ class Album
     private $date;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="auteur", type="string", length=255)
-     */
-    private $auteur;
+   * @ORM\Column(name="type", type="string", length=255)
+   */
+  private $type;
 
 
     /**
@@ -129,26 +127,20 @@ class Album
         return $this->date;
     }
 
-    /**
-     * Set auteur
-     *
-     * @param string $auteur
-     * @return Album
-     */
-    public function setAuteur($auteur)
+  public function setType($type)
     {
-        $this->auteur = $auteur;
+        $this->type = $type;
     
         return $this;
     }
 
     /**
-     * Get auteur
+     * Get alt
      *
      * @return string 
      */
-    public function getAuteur()
+    public function getType()
     {
-        return $this->auteur;
+        return $this->type;
     }
 }

@@ -1,0 +1,27 @@
+{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Suppprimer une photo - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+
+    <h2>Supprimer une photo</h2>
+
+  <p>
+    Etes-vous certain de vouloir supprimer la photo "{{ photo.alt }}" ?
+  </p>
+
+  {# On met l'id de l'video dans la route de l'action du formulaire #}
+  <form action="{{ path('toubarefaneadmin_supprimerphoto', {'id': photo.id}) }}" method="post">
+    <a href="{{ path('toubarefaneadmin_tousphoto') }}" type="button" class="btn btn-info">
+      <i class="icon-chevron-left"></i>
+      Retour aux photos
+    </a>
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

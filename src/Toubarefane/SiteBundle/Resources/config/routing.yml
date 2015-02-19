@@ -1,37 +1,25 @@
 # src/Toubarefane/SiteBundle/Resources/config/routing.yml
-
+#acueil
 toubarefanesite_accueil:
     path:      /{page}
     defaults:  { _controller: ToubarefaneSiteBundle:Site:index, page: 1 }
     requirements:
         page:  \d*
-
+#articles
 toubarefanesite_voir:
     path:      /article/{id}
     defaults:  { _controller: ToubarefaneSiteBundle:Site:voir }
     requirements:
         id:  \d+
+    options:
+        expose: true
 toubarefanesite_album:
     path:      /album
     defaults:  { _controller: ToubarefaneSiteBundle:Site:album }
 toubarefanesite_voirtous:
     path:      /articles
     defaults:  { _controller: ToubarefaneSiteBundle:Site:voirtous }
-toubarefanesite_ajouter:
-    path:      /ajouter
-    defaults:  { _controller: ToubarefaneSiteBundle:Site:ajouter }
-
-toubarefanesite_modifier:
-    path:      /modifier/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Site:modifier }
-    requirements:
-        id:  \d+
-
-toubarefanesite_supprimer:
-    path:      /supprimer/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Site:supprimer }
-    requirements:
-        id:  \d+
+    ##############contact######################
 toubarefanesite_sendMail:
     path:      /sendMail/{pseudo}
     defaults:  { _controller: ToubarefaneSiteBundle:Site:sendMail }
@@ -40,29 +28,25 @@ toubarefanesite_sendMail:
 toubarefanesite_contact:
     path:      /contact
     defaults:  { _controller: ToubarefaneSiteBundle:Site:contact }
-toubarefanephoto_ajouter:
-    path:      /ajouter_photo
-    defaults:  { _controller: ToubarefaneSiteBundle:Photo:ajouter }
-
+    #############photo################
 toubarefanephoto_voir:
     path:      /voir_photo/{id}
     defaults:  { _controller: ToubarefaneSiteBundle:Photo:voir }
     requirements:
         id:  \d+
+    options:
+        expose: true
+   
 toubarefanephoto_tous:
     path:      /photo/tous
     defaults:  { _controller: ToubarefaneSiteBundle:Photo:voirtous }
-toubarefanephoto_supprimer:
-    path:      /supprimer_photo/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Site:supprimer }
-    requirements:
-        id:  \d+
+    #################audio###################
 toubarefaneaudio_tous:
     path:      /audios
     defaults:  { _controller: ToubarefaneSiteBundle:Audio:voirtous }
-toubarefaneaudio_kh:
-    path:      /audio/khassidas
-    defaults:  { _controller: ToubarefaneSiteBundle:Audio:voirkhassida }
+toubarefaneaudio_kourel:
+    path:      /audio/kourel
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiokourel }
 toubarefaneaudio_wakhtane:
     path:      /audio/wakhtane
     defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiowakhtane }
@@ -75,15 +59,87 @@ toubarefaneaudio_radias:
 toubarefaneaudio_coran:
     path:      /audio/coran
     defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiocoran }
+toubarefaneaudio_segnesaliou:
+    path:      /audio/segnesaliou
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiosegnesaliou }
+toubarefaneaudio_zikr:
+    path:      /audio/zikr
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiozikr }
+toubarefaneaudio_maggni:
+    path:      /audio/maggni
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiomaggni }
+    #################téré kham kham###################
+toubarefaneaudio_sikhar_kh:
+    path:      /audio/sikhar_kh
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiosikhar }
+toubarefaneaudio_soubane_kh:
+    path:      /audio/soubane_kh
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiosoubane }
+toubarefaneaudio_nahjou_sa:
+    path:      /audio/nahjou_sa
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audionahjou }
+toubarefaneaudio_jawhar_sa:
+    path:      /audio/jawhar_sa
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiojawhar }
+toubarefaneaudio_massalik_sa:
+    path:      /audio/massalik_sa
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:audiomassalik }
+    options:
+         expose: true
+toubarefaneaudio_voir:
+    path:      /audio/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Audio:voiraudio }
+    requirements:
+       id: \d+
+    options:
+         expose: true
+    ###################video#################
 toubarefanevideo_kh:
     path:      /video/khassidas
-    defaults:  { _controller: ToubarefaneSiteBundle:Video:voirtous }
-toubarefanevideo_ac:
-    path:      /accueil/video
-    defaults:  { _controller: ToubarefaneSiteBundle:Video:index }
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:voirkhassida }
+toubarefanevideo_autre:
+    path:      /autre/video
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:autre }
+toubarefanevideo_wakhtane:
+    path:      /video/wakhtane
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:wakhtane }
+toubarefanevideo_voir:
+    path:      /video/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Video:voir }
+    requirements:
+        id:  \d+
+    options:
+        expose: true
+        ################almouridiya####################
 toubarefanesite_almouridiya:
     path:      /almouridiya
     defaults:  { _controller: ToubarefaneSiteBundle:Site:almouridiya }
-toubarefanesite_magaltoubarefane:
-    path:      /magaltoubarefane
-    defaults:  { _controller: ToubarefaneSiteBundle:Site:magaltoubarefane }
+    #####################dol###############
+toubarefanedol_tous:
+    path:      /dol/tous
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:touslesdol }
+    options:
+       expose: true
+toubarefanedol_wakana:
+    path:      /dol/wakana
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:wakana }
+toubarefanedol_marakhib:
+    path:      /dol/marakhib
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:marakhib }
+toubarefanedol_taysir:
+    path:      /dol/taysir
+    defaults:  { _controller: ToubarefaneSiteBundle:Photo:taysir }
+
+    ###################recherche#################
+toubarefanesite_article_rechercher:
+    path:      /article_rechercher
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:recherchearticle }
+    requirements:
+        _method: POST
+toubarefanesite_article_rechercherajax:
+    path:      /article_rechercherajax
+    defaults:  { _controller: ToubarefaneSiteBundle:Site:rechercheajax }
+    requirements:
+        _method: POST
+    options:
+        expose: true

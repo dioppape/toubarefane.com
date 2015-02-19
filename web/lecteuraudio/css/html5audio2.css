@@ -1,0 +1,27 @@
+#playlist{
+    background:#51a351;
+    width:400px;
+    height: 200px;
+    padding:30px;
+    overflow-y: scroll;
+         }
+#audio{
+    background:#51a351;
+    width:418px;
+    padding:20px;
+
+         }
+.active a{color:#5DB0E6;
+         text-decoration: #51a351;
+         
+         }
+li a{color:#eeeedd;
+background: slategrey;
+    padding:5px;
+   display:block;}
+li a:hover{text-decoration: #5DB0E6;
+          
+          background: #51a351;}
+li {list-style: decimal;}
+
+    

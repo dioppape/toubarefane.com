@@ -1,0 +1,35 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Tous les videos - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+ 
+   
+  {# On vérifie qu'une video soit bien associée à l'article #}
+  
+          {% for videos in videos | reverse%}
+            {% if videos.category !="accueil" %}
+          <div class="col-lg-3 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <li class="gimg img-responsive"> {{ videos.embeded | raw }}<h1> {{ videos.name}}</h1><p>{{ videos.description}}</p></li>
+                            <li class="unstyled"><a href="{{ path('toubarefaneadmin_modifiervideo', {'id': videos.id}) }}" type="button" class="btn-sm btn-success">
+                             <i class="icon-edit"></i>
+                             Modifier
+                              </a>
+                               <a href="{{ path('toubarefaneadmin_supprimervideo', {'id': videos.id}) }}" type="button" class="btn-sm btn-danger">
+                               <i class="icon-trash"></i>
+                              Supprimer
+                              </a>
+                            </li>
+                        </div>
+                    </div>
+              </div>
+           {% endif %} 
+         {% endfor %}  
+   
+{% endblock %}

@@ -15,7 +15,11 @@ class AudioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('alt', 'text')
+            ->add('alt', 'choice', array(
+              'choices' => array( 'coran' => 'Coran','kourel' => 'Kourel','radias' => 'Radias','segnesam'=>'Serigne Sam','wakhtane'=>'Wakhtane',
+                  'zikr' => 'Zikr','segnesaliou'=>'Serigne Saliou Sow','maggni'=>'Maggni'
+                  ,'sikhar' => 'Mame Mor Xam Sa Diné','soubane' => 'Autre Xam Sa Diné','jawhar' => 'Jawhar','nahjou' => 'Nahjou','massalik' => 'Massalik')
+               ))
            ->add('file', 'file')
             ;
     }

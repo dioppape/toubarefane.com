@@ -41,14 +41,14 @@
 				/* useRollovers: use button rollovers, true/false. */
 				useRollovers:false,
 				/* buttonsUrl: url of the buttons for normal and rollover state, so I dont hardcode them in jquery (rollover state is optional). */
-				buttonsUrl: {prev: 'img/prev.png', prevOn: 'img/prev_on.png', 
-						  	 next: 'img/next.png', nextOn: 'img/next_on.png', 
-						 	 pause: 'img/pause.png', pauseOn: 'img/pause_on.png',
-						 	 play: 'img/play.png', playOn: 'img/play_on.png',
-						 	 volume: 'img/volume.png', volumeOn: 'img/volume_on.png', 
-							 mute: 'img/mute.png', muteOn: 'img/mute_on.png', 
-						  	 loop: 'img/loop.png', loopOn: 'img/loop_on.png',
-						  	 shuffle: 'img/shuffle.png', shuffleOn: 'img/shuffle_on.png'}
+				buttonsUrl: {prev: '/toubarefane/web/bootstrap/lecteuraudio/img/prev.png', prevOn: '/toubarefane/web/bootstrap/lecteuraudio/img/prev_on.png', 
+						  	 next: '/toubarefane/web/bootstrap/lecteuraudio/img/next.png', nextOn: '/toubarefane/web/bootstrap/lecteuraudio/img/next_on.png', 
+						 	 pause: '/toubarefane/web/bootstrap/lecteuraudio/img/pause.png', pauseOn: '/toubarefane/web/bootstrap/lecteuraudio/img/pause_on.png',
+						 	 play: '/toubarefane/web/bootstrap/lecteuraudio/img/play.png', playOn: '/toubarefane/web/bootstrap/lecteuraudio/img/play_on.png',
+						 	 volume: '/toubarefane/web/bootstrap/lecteuraudio/img/volume.png', volumeOn: '/toubarefane/web/bootstrap/lecteuraudio/img/volume_on.png', 
+							 mute: '/toubarefane/web/bootstrap/lecteuraudio/img/mute.png', muteOn: '/toubarefane/web/bootstrap/lecteuraudio/img/mute_on.png', 
+						  	 loop: '/toubarefane/web/bootstrap/lecteuraudio/img/loop.png', loopOn: '/toubarefane/web/bootstrap/lecteuraudio/img/loop_on.png',
+						  	 shuffle: '/toubarefane/web/bootstrap/lecteuraudio/img/shuffle.png', shuffleOn: '/toubarefane/web/bootstrap/lecteuraudio/img/shuffle_on.png'}
 			};
 			
 			//sound manager settings (http://www.schillmania.com/projects/soundmanager2/)
@@ -106,7 +106,7 @@
 			//**********End Delete this if you want to use just flash**********//
 			
 			jQuery(document).ready(function() {
-				var $ = jQuery.noConflict();
+                            var $ = jQuery.noConflict();
 			    $.html5audio('#componentWrapper', ap_settings, 'sound_id1');
 			    ap_settings = null;
     	    });

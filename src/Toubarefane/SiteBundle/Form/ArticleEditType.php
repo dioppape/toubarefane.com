@@ -14,7 +14,7 @@ class ArticleEditType extends ArticleType // Ici, on hérite de ArticleType
     parent::buildForm($builder, $options);
 
     // On supprime celui qu'on ne veut pas dans le formulaire de modification
-    $builder->remove('date');
+   // $builder->remove('date');
   }
 
   // On modifie cette méthode, car les deux formulaires doivent avoir un nom différent

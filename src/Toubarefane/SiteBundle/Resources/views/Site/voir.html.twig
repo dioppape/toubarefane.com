@@ -7,35 +7,39 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
+ <div class="col-lg-8 col-md-8 col-xs-12 col-lg-offset">
+                         
+                            {% if article.file.type=="image" %}
+                            
+                            <img class="oimg img-responsive img-thumbnail" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  alt="{{ article.file.name }}" />
+                           {% elseif article.file.type=="video" %}
+                            
+                           <video class="oimg img-responsive img-thumbnail" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  controls="controls"><p>{{ article.file.name }}</p></video>
+                            {% elseif article.file.type=="youtube" %}
+                             {% set clef=article.file.description |slice(38,35)%}
+                             {% set url='<iframe class="ovideo img-responsive img-thumbnail"  src="lien?rel=0&amp;autoplay=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>' %}
+                                
+                             {{ url | replace({'lien': clef}) | raw  }}
+                      
+                           {% else %}
+                           
+                           <audio class="oaudio img-responsive img-thumbnail" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  controls="controls" >{{ article.file.name }}</audio>
+                           
+                           {% endif %}
+                        
+                        
+                            
+  
+                           <i class="auteur">Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
+                            <h3 class="text-center"> <span class="glyphicon glyphicon-camera"></span>{{ article.titre}}</h3><div class="fb-share-button">
+                                  </div>
+                           <div class="panel panel-body textbody">
+                            {{ article.contenu }}
+                           </div>
+                          
+                         </div>
+                      {% include "ToubarefaneSiteBundle:Site:nousuivre.html.twig" %}   
 
-   <h2>
-  {# On vérifie qu'une image soit bien associée à l'article #}
-  {% if article.image is not null %}
-    <img src="{{ asset(article.image.uploadDir ~ '/' ~ article.image.url) }}" alt="{{ article.image.alt }}" />
-  {% endif %}
-
-    {{ article.titre }}
-  </h2>
-  <i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
-
-  <div class="well">
-    {{ article.contenu }}
-  </div>
-
-
-  <p>
-    <a href="{{ path('toubarefanesite_accueil') }}" class="btn">
-      <i class="icon-chevron-left"></i>
-      Retour à la liste
-    </a>
-    <a href="{{ path('toubarefanesite_modifier', {'id': article.id}) }}" class="btn">
-      <i class="icon-edit"></i>
-      Modifier l'article
-    </a>
-    <a href="{{ path('toubarefanesite_supprimer', {'id': article.id}) }}" class="btn">
-      <i class="icon-trash"></i>
-      Supprimer l'article
-    </a>
-  </p>
+  
 
 {% endblock %}

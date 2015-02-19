@@ -7,38 +7,75 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
- {% for article in articles %}
-   <h2>
-  {# On vérifie qu'une image soit bien associée à l'article #}
-  {% if article.image is not null %}
-   <img
-  src="{{ asset(article.image.uploadDir ~ '/' ~ article.image.url) }}"
-  alt="{{ article.image.alt }}"
-/>
-  {% endif %}
+ {% for article in articles | reverse%}
+   <div class="col-lg-12 col-md-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                     {# On vérifie qu'une image soit bien associée à l'article #}
+                            {% if article.file is not null %}
+                            {% if article.file.type=="image" %}
+                            <li class="unstyled"><a href="{{ path('toubarefaneadmin_modifier', {'id': article.id}) }}" type="button" class="btn-sm btn-success">
+                             <i class="icon-edit"></i>
+                             Modifier l'article
+                              </a>
+                               <a href="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" type="button" class="btn-sm btn-danger">
+                               <i class="icon-trash"></i>
+                              Supprimer l'article
+                              </a>
+                            </li>
+                            <img class="gimg img-responsive" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  alt="{{ article.file.name }}" />
+                           {% elseif article.file.type=="video" %}
+                            <li class="unstyled"><a href="{{ path('toubarefaneadmin_modifier', {'id': article.id}) }}" type="button" class="btn-sm btn-success">
+                             <i class="icon-edit"></i>
+                             Modifier l'article
+                              </a>
+                               <a href="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" type="button" class="btn-sm btn-danger">
+                               <i class="icon-trash"></i>
+                              Supprimer l'article
+                              </a>
+                            </li>
+                           <video class="gimg img-responsive" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  controls="controls" type="video/mp4"><p>{{ article.file.name }}</p></video>  
+                          {% elseif article.file.type=="youtube" %}
+                            <li class="unstyled"><a href="{{ path('toubarefaneadmin_modifieryoutube', {'id': article.id}) }}" type="button" class="btn-sm btn-success">
+                             <i class="icon-edit"></i>
+                             Modifier l'article
+                              </a>
+                               <a href="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" type="button" class="btn-sm btn-danger">
+                               <i class="icon-trash"></i>
+                              Supprimer l'article
+                              </a>
+                            </li>
+                          {% set clef=article.file.description |slice(38,35)%}
+                             {% set url='<iframe width="570" height="400" src="lien?rel=0&amp;autoplay=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>' %}
+                          <li class="gimg img-responsive"> {{ url | replace({'lien': clef}) | raw  }}</li>
+                          {% else %}
+                           <li class="unstyled"><a href="{{ path('toubarefaneadmin_modifier', {'id': article.id}) }}" type="button" class="btn-sm btn-success">
+                             <i class="icon-edit"></i>
+                             Modifier l'article
+                              </a>
+                               <a href="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" type="button" class="btn-sm btn-danger">
+                               <i class="icon-trash"></i>
+                              Supprimer l'article
+                              </a>
+                            </li>
+                           
+                           
+                           <audio class="gimg img-responsive" src="{{ asset(article.file.uploadDir ~ '/' ~article.file.url ) }}"  controls="controls" >{{ article.file.name }}</audio>
+                           
+                           {% endif %}
+                          {% endif %}
+                        
+                           <title> {{ article.titre }}</title>
+  
+                            <i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
 
-    {{ article.titre }}
-  </h2>
-  <i>Par {{ article.auteur }}, le {{ article.date|date('d/m/Y') }}</i>
-
-  <div class="well">
-    {{ article.contenu }}
-  </div>
-
-
-  <p>
-    <a href="{{ path('toubarefaneadmin_accueil') }}" class="btn">
-      <i class="icon-chevron-left"></i>
-      Retour à la liste
-    </a>
-    <a href="{{ path('toubarefaneadmin_modifier', {'id': article.id}) }}" class="btn">
-      <i class="icon-edit"></i>
-      Modifier l'article
-    </a>
-    <a href="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" class="btn">
-      <i class="icon-trash"></i>
-      Supprimer l'article
-    </a>
-  </p>
+                           <div class="well">
+                            {{ article.contenu }}
+                           </div>
+                          
+                         </div>
+                    </div>
+   </div>
+  
 {% endfor %}
 {% endblock %}

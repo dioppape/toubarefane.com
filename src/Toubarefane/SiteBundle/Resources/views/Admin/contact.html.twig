@@ -10,7 +10,7 @@
   {% if message is not null %}
     {{ message }}
   {% endif %}
-<div class="well">
+<div class="well col-lg-10">
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <input type="submit" value="envoyer" class="btn btn-primary" />

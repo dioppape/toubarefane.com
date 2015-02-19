@@ -1,0 +1,35 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/index.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+
+<div class="col-lg-8 col-md-8 col-xs-12 col-lg-offset">
+    {% if articles and videos is null %}
+    Aucun article trouvé
+    {% endif %}
+     <div id="resultat"></div> 
+   
+    {% for article in articles| reverse %}
+   <a href="{{ path('toubarefanesite_voir', {'id': article.id}) }}" class="btn">
+      <i class="icon-edit"></i>
+        {{ article.titre }}
+      Voir l'article
+    </a>
+    {% endfor %}
+     {% for video in videos| reverse %}
+   <a href="{{ path('toubarefanevideo_voir', {'id': video.id}) }}" class="btn">
+      <i class="icon-edit"></i>
+        {{ video.name }}
+      Voir la video
+    </a>
+    {% endfor %}
+</div>
+
+  {% include "ToubarefaneSiteBundle:Site:nousuivre.html.twig" %}  
+
+{% endblock %}

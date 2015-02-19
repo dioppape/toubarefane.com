@@ -12,4 +12,80 @@ use Doctrine\ORM\EntityRepository;
  */
 class AudioRepository extends EntityRepository
 {
+    public function getCoran(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='coran' order by c.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getKourel(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='kourel' order by c.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getRadias(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='radias' order by c.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getSegneSam(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='segnesam' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getZikr(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='zikr' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getMaggni(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='maggni' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getSegneSaliou(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='segnesaliou' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getWakhtane(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='wakhtane' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    //tere kham kham
+    public function getSikhar(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='sikhar' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getSoubane(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='soubane' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getNahjou(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='nahjou' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getjawhar(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='jawhar' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getMassalik(){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.alt='massalik' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+     public function getVoirAudio($id){
+        $query="select c from ToubarefaneSiteBundle:Audio c where c.id='$id'";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getAudio($motcle){
+        $query="select a from ToubarefaneSiteBundle:Audio a WHERE a.url like '%$motcle%' or a.alt like '%$motcle%' order by a.id ASC";
+         
+        return $this->getEntityManager()->createQuery($query)->getResult();
+  }
 }

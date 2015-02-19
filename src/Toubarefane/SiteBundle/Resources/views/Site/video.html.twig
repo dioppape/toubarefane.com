@@ -3,24 +3,42 @@
 {% extends "ToubarefaneSiteBundle::layout.html.twig" %}
 
 {% block title %}
-  Tous les videos - {{ parent() }}
+  Videos - {{ parent() }}
 {% endblock %}
 
 {% block toubarefanesite_body %}
- <div id="content"> 
-      <div class="gallery">
-      <h2>Khassaides</h2>
-      <ul>
- 
-  {# On vérifie qu'une video soit bien associée à l'article #}
-  
-          {% for videos in videos %}
-          <li>{{ videos.embeded | raw }}<p><h1> {{ videos.alt}}</h1></p></li>
+  <div class="col-xs-12 col-lg-9 col-sm-10 col-md-9">
+      <header class="panel panel-info col-xs-12 col-lg-9 col-md-8 newtitle " style=""> {{chemin | replace({'Video>>': ''})}}</header>
+       {% set b=false%}
+         {% for videos in videos %}
       
-         {% endfor %}  
-      </ul>
-    </div>
-     
-   
- </div>
+                 <div class="col-lg-4 col-md-6 col-xs-12 col-sm-6">
+                    
+                         {% set clef=videos.embeded |slice(38,35)%}
+                        {% set url='<iframe class="img-responsive img-thumbnail gvideo" src="lien?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>' %}
+                          <a href="{{ path('toubarefanevideo_voir', {'id': videos.id}) }}">
+                              <div class="bgvideo2">      
+                            <span class="videotitle">{{ videos.name}}</span>
+                              {{ url | replace({'lien': clef}) | raw  }}
+                              </div>
+                               <div class="bgtitre2">
+                              
+                              </div>
+                              </a>  
+                       </div>
+              
+       {% set b=true%}
+      
+   {% endfor %}
+   {% if b==false%}
+      <div class="col-lg-5 col-md-6 col-xs-6">
+                    <div class="panel">
+                        <div class="panel-heading">     
+                             Auccune video divers  </div>
+                    </div>
+              </div>
+       {% endif %}
+  </div> 
+ 
+  {% include "ToubarefaneSiteBundle:Site:videoaccueil.html.twig" %}
 {% endblock %}

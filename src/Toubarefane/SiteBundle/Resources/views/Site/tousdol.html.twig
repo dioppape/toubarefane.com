@@ -1,0 +1,53 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Dol Khassida - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+  <header class="panel panel-info" style="font-family:inherit ; font-weight:bold; text-transform: uppercase;color: #000;"> {{chemin | replace({'Video>>': ''})}}</header>
+     {% for album in album %}
+  {# On vérifie qu'une image soit bien associée à l'article #}
+  {% if album.type== "wakana" %}
+ <div class="col-lg-4 col-md-4 col-xd-12"> 
+      
+  <a href="{{ path('toubarefanedol_wakana')}}">    
+   <img class="gimg img-responsive" src="{{ album.url }}" />
+  </a>
+      <div class="title">{{ album.nom }}  </div>
+ </div>
+ 
+  {% endif %}
+   {% if album.type== "marakhib" %}
+ <div class="col-lg-4 col-md-4 col-xd-12"> 
+      
+ 
+  <a href="{{ path('toubarefanedol_marakhib')}}">    
+   <img class="gimg img-responsive" src="{{ album.url }}" />
+  </a>
+      <div class="title">{{ album.nom }}  </div>
+ </div>
+ 
+  {% endif %}
+   {% if album.type== "taysir" %}
+ <div class="col-lg-4 col-md-4 col-xd-12"> 
+     
+ 
+  <a href="{{ path('toubarefanedol_taysir')}}">    
+   <img class="gimg img-responsive" src="{{ album.url }}" />
+  </a>
+      <div class="title">{{ album.nom }}  </div>
+ </div>
+ 
+  {% endif %}
+   
+{% endfor %}
+ <div id="fb-root"></div>
+
+ <div class="fb-share-button col-lg-3 col-md-3 col-xd-12"
+     data-href="http://toubarefane.com/dol/tous"
+     data-type="box_count">
+</div>
+{% endblock %}

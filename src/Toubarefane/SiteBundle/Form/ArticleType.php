@@ -1,7 +1,6 @@
 <?php
 
 namespace Toubarefane\SiteBundle\Form;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,16 +13,19 @@ class ArticleType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
+   
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user=$options['user'];
+        $type=$options['type'];
         $builder
             ->add('date')
             ->add('titre')
-            ->add('auteur')
+            ->add('auteur','hidden',array('data'=>$user))
             ->add('contenu')
             ->add('publication')
             //->add('dateEdition')
-            ->add('image',     new ImageType())
+            ->add('file',new FileType($type))
       /*
        * Rappel :
        ** - 1er argument : nom du champ, ici « categories » car c'est le nom de l'attribut
@@ -40,7 +42,7 @@ class ArticleType extends AbstractType
         'expanded' => false
       ))
     ;
-
+  
 //On récupère la factory (usine)
     $factory = $builder->getFormFactory();
 
@@ -74,6 +76,14 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Toubarefane\SiteBundle\Entity\Article'
         ));
+         $resolver->setRequired(array(
+            'user','type'
+        ));
+
+        $resolver->setAllowedTypes(array(
+            'user' => 'Toubarefane\UserBundle\Entity\User',
+            'type' => "string",
+        ));
     }
 
     /**
@@ -83,4 +93,5 @@ class ArticleType extends AbstractType
     {
         return 'toubarefane_sitebundle_article';
     }
+   
 }

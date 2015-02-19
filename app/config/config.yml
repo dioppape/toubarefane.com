@@ -5,6 +5,7 @@ fos_user:
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "@ToubarefaneSiteBundle/Resources/config/services.yml" }
 
 framework:
     translator:      { fallback: %locale% }

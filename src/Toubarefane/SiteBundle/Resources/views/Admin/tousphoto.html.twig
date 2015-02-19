@@ -7,24 +7,27 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
- <div id="content"> 
-      <div class="gallery">
-      <h2>Latest Gallery Pics</h2>
-      <ul>
- {% for allimages in images %}
-  {# On vérifie qu'une image soit bien associée à l'article #}
-  {% if allimages is not null %}
-  <li><a href="{{ path('toubarefanephoto_voir', {'id': allimages.id}) }}">    
-   <img
-  src="{{ asset(allimages.uploadDir ~ '/' ~ allimages.url) }}"
-  alt="{{ allimages.alt }}" height="174" width="174"  
-/>
-      </a></li>
-  {% endif %}
+ 
      
+      
+ {% for allimages in images | reverse %}
+  {# On vérifie qu'une image soit bien associée à l'article #}
+
+           <div class="col-lg-3 col-md-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <img class="gimg img-responsive" src="{{ asset(allimages.uploadDir ~ '/' ~ allimages.url) }}" >
+                        </div>
+                    </div>
+                   <p>{{allimages.alt}}</p>
+                       <a href="{{ path('toubarefaneadmin_supprimerphoto', {'id': allimages.id}) }}" type="button" class="btn-sm btn-danger">
+                        <i class="icon-trash"></i>
+                       Supprimer
+                        </a>
+           </div>     
    
 {% endfor %}
-       </ul>
-      </div>
- </div>
+      
+   
+ 
 {% endblock %}

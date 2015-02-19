@@ -14,22 +14,42 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ArticleRepository extends EntityRepository
 {
   // On ajoute deux arguments : le nombre d'articles par page, ainsi que la page courante
-  public function getArticles()
+  public function getArticles($nombreParPage, $page)
   {
     
-
+if ((int) $page < 1) {
+     // throw new \InvalidArgumentException('L\'argument $page ne peut être inférieur à 1 (valeur : "'.$page.'").');
+    $page=1;
+    }
     // La construction de la requête reste inchangée
     $query = $this->createQueryBuilder('a')
-                  ->leftJoin('a.image', 'i')
+                  ->leftJoin('a.file', 'i')
                     ->addSelect('i')
                   ->leftJoin('a.categories', 'cat')
                     ->addSelect('cat')
+                   ->where("cat.nom='accueil'")
                   ->orderBy('a.date', 'DESC')
                   ->getQuery();
 
-   
+       $query->setFirstResult(($page-1) * $nombreParPage)
+          ->setMaxResults($nombreParPage);
     // Enfin, on retourne l'objet Paginator correspondant à la requête construite
     // (n'oubliez pas le use correspondant en début de fichier)
     return new Paginator($query);
+  }
+  public function getAlmouridiya(){
+       $query="select a from ToubarefaneSiteBundle:Article a JOIN a.categories c WHERE c.nom='almouridiya' order by a.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+  }
+  public function getMagal(){
+       $query="select a from ToubarefaneSiteBundle:Article a JOIN a.categories c WHERE c.nom='magal' order by a.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+  }
+  public function getArticle($motcle){
+       $query="select a from ToubarefaneSiteBundle:Article a WHERE a.contenu like '%$motcle%' or a.titre like '%$motcle%' order by a.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
   }
 }

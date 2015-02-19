@@ -4,6 +4,7 @@ namespace Toubarefane\SiteBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Toubarefane\SiteBundle\Form\FilesTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ImageType extends AbstractType
@@ -15,9 +16,22 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('alt', 'text')
-           ->add('file', 'file')
-            ;
+           
+                 ->add(
+                $builder->create('file', 'file', array(
+            "label" => "Fichiers",
+            "required" => FALSE,
+            "attr" => array(
+                "accept" => "image/*",
+                "multiple" => "multiple",
+                 )
+                   ))
+                         ->addModelTransformer
+             ->addModelTransformer(new FilesTransformer()))
+            ->add('type', 'choice', array(
+              'choices' => array( 'marakhib' => 'Marakhib','photo' => 'Photo','wakana' => 'Wakana','taysir' => 'Taysir')))
+             ;
+         
     }
     
     /**

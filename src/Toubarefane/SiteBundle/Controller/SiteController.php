@@ -1,38 +1,36 @@
 <?php
-
+//3fc3b92681f5ac57df463a0a9ff89f31a68c5e90
 // src/Toubarefane/SiteBundle/Controller/SiteController.php
 
 namespace Toubarefane\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Toubarefane\SiteBundle\Entity\Article;
-use Toubarefane\SiteBundle\Form\ImageType;
-use Toubarefane\SiteBundle\Form\ArticleType;
-use Toubarefane\SiteBundle\Form\ArticleEditType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Toubarefane\SiteBundle\Form\ContactType;
+ 
 class SiteController extends Controller
-{
-  public function indexAction()
+{  
+   /*http://symfony.com/fr/doc/current/cookbook/security/voters.html
+    * https://github.com/valllabh/jquery.currency.converter
+    * http://finance.yahoo.com/currency-converter/
+    * http://stackoverflow.com/questions/3139879/how-do-i-get-currency-exchange-rates-via-an-api-such-as-google-finance
+    * http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDEUR%22,%20%22USDISK%22)&env=store://datatables.org/alltableswithkeys
+    * http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDEUR", "USDISK")&env=store://datatables.org/alltableswithkeys*/
+  public function indexAction($page)
   {
-  
-/* On récupère le service
-  
-    $antispam = $this->container->get('toubarefane_site.antispam');
-$text='http://tb.com refane@live.fr ';
-    // Je pars du principe que $text contient le texte d'un message quelconque
-    if ($antispam->isSpam($text)) {
-      throw new \Exception('Votre message a été détecté comme spam !');
-    }
-    // Ici, on récupérera la liste des articles, puis on la passera au template
-  // Les articles :
+      
+   $nbParPage = $this->container->getParameter('tbrsite.nombre_par_page');
+// Les articles :
      // On récupère le repository
   $articles = $this->getDoctrine()
                      ->getManager()
                      ->getRepository('ToubarefaneSiteBundle:Article')
-                     ->getArticles();
-  
-
+                     ->getArticles($nbParPage, $page);
+$response=new Response();
+     //$response->$this->getRequest()->getClientIp();
+ $ip = $this->getRequest()->getClientIp();
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
 
   // Ou null si aucun article n'a été trouvé avec l'id $id
@@ -40,41 +38,207 @@ $text='http://tb.com refane@live.fr ';
   {
     throw $this->createNotFoundException('Article inexistant.');
   }
-    $chemin='Accueils>>';
+    $chemin='Accueil>>';
     // Mais pour l'instant, on ne fait qu'appeler le template
     return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
-    'articles' => $articles,
-      'chemin'       => $chemin
+      'articles' => $articles,
+      'autrevideo'     => SiteController::getVideo(),
+       'ipclient'       => $ip,
+      'chemin'       => $chemin,
+        'page'     => $page,
+      'nb_page'  => ceil(count($articles) / $nbParPage) ?: 1
 
   ));
-    */
-return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
+  }
+  public function  getVideo() {
+      $video = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Video')
+                     ->getVideos();
+    if($video === null)
+  {
+    throw $this->createNotFoundException('Video[id] inexistant.');
+  }
+  return $video;
   }
   
-  public function menuAction($nombre) // Ici, nouvel argument $nombre, on l'a transmis via le render() depuis la vue
-  {
-    // On fixe en dur une liste ici, bien entendu par la suite on la récupérera depuis la BDD !
-    // On pourra récupérer $nombre articles depuis la BDD,
-    // avec $nombre un paramètre qu'on peut changer lorsqu'on appelle cette action
-    $repository = $this->getDoctrine()
+   
+  public function recherchearticleAction()
+  {    
+       //$form = $this->container->get('form.factory')->create(new ArticleRechercheType());
+   $chemin="Article>> Rechercher";
+     
+    $article=null;
+    // On récupère la requête
+    $request = $this->getRequest();
+
+    // On vérifie qu'elle est de type POST
+    if ($request->getMethod() == 'POST') {
+        $motcle = $request->request->get('motcle');
+       
+        $article = $this->getDoctrine()
                      ->getManager()
-                     ->getRepository('ToubarefaneSiteBundle:Article');
-
-  // On récupère l'entité correspondant à l'id $id
-  $liste = $repository->findAll();
-
-  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
-
-  // Ou null si aucun article n'a été trouvé avec l'id $id
-  if($liste === null)
+                     ->getRepository('ToubarefaneSiteBundle:Article')
+                     ->getArticle($motcle); 
+        
+       
+        $video = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Video')
+                     ->getVideo($motcle); 
+        
+        /*
+        if($critere=="audio" || $critere=="tous"){
+        $article = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio')
+                     ->getAudio($motcle); 
+        }
+        if($critere=="dol" || $critere=="tous"){
+        $article = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Image')
+                     ->getDolKh($motcle); 
+        }
+        if($critere=="photo" || $critere=="tous"){
+        $article = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Image')
+                     ->getImage($motcle); 
+        }
+         * */
+        
+    }
+        return $this->render('ToubarefaneSiteBundle:Site:recherche.html.twig', array(
+         'videos' => $video,
+         'articles' => $article,
+       'chemin'       => $chemin
+        ));
+      
+   
+  }
+  public function rechercheajaxAction()
   {
-    throw $this->createNotFoundException('Article[id='.$id.'] inexistant.');
+      $titres=array();
+      
+      $request = $this->container->get('request');
+      
+      if($request->isXmlHttpRequest())
+     {   
+          $video=array();
+          $article=array();
+          $audio=array();
+          $dol=array();
+          $photo=array();
+         
+          $critere = $request->request->get('critere');
+         $motcle = $request->request->get('motcle');
+         
+        if($critere=="article" || $critere=="tous"){
+        $article = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Article')
+                     ->getArticle($motcle); 
+        }
+        if($critere=="video" || $critere=="tous"){
+        $video = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Video')
+                     ->getVideo($motcle); 
+        }
+        
+        if($critere=="audio" || $critere=="tous"){
+        $audio = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Audio')
+                     ->getAudio($motcle); 
+        }
+        if($critere=="dol" || $critere=="tous"){
+        $dol = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Image')
+                     ->getDol($motcle); 
+        }
+        if($critere=="photo" || $critere=="tous"){
+        $photo = $this->getDoctrine()
+                     ->getManager()
+                     ->getRepository('ToubarefaneSiteBundle:Image')
+                     ->getImage($motcle); 
+        }
+        
+      
+    foreach ($article as $ar) {
+                   $titres [$ar->getId()] = $ar->getTitre();
+               }
+         
+   
+     foreach ($video as $v) {
+                   $titres [$v->getId().'v'] = $v->getName();
+               }
+      
+         
+   
+     foreach ($dol as $d) {
+                   $titres [$d->getId().'d'] = $d->getUrl();
+               }
+      foreach ($photo as $p) {
+                   $titres [$p->getId().'p'] = $p->getUrl();
+               }
+             
+       foreach ($audio as $a) {
+                   $titres [$a->getId().'a'] = $a->getUrl();
+               }  
+              
+          $reponse=  new JsonResponse(); 
+          //$reponse->setContent($audio);
+         // var_dump($reponse->setData($audio));
+            //   die();
+     return $reponse->setData($titres); 
+     
+     }
+     else{
+        throw new \Exception("ereeur");
+    }
+         
   }
-    
-    return $this->render('ToubarefaneSiteBundle:Site:menu.html.twig', array(
-      'liste_articles' => $liste // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
-    ));
+  public function rechercheajax2Action()
+  {    
+    $request = $this->container->get('request');
+    //$request = $this->getRequest();
+    $article=null;
+    if($request->isXmlHttpRequest())
+    {   
+        $em = $this->container->get('doctrine')->getEntityManager();
+        
+        $motcle = '';
+       $motcle = $request->request->get('motcle');
+       
+       if($motcle != '')
+        {
+               $qb = $em->createQueryBuilder();
+
+               $qb->select('a')
+                  ->from('ToubarefaneSiteBundle:Article', 'a')
+                  ->where("a.contenu LIKE :motcle OR a.titre LIKE :motcle")
+                  ->orderBy('a.titre', 'ASC')
+                  ->setParameter('motcle', '%'.$motcle.'%');
+
+               $query = $qb->getQuery();               
+               $article = $query->getResult();
+               //var_dump($article);
+               $articles=array();
+               foreach ($article as $ar) {
+                   $articles [] = $ar->getTitre();
+               }
+        }
+     $reponse=  new JsonResponse(); 
+     return $reponse->setData(array('article'=>$articles)); 
+    }
+    else{
+        throw new \Exception("ereeur");
+    }
   }
+  
   public function voirAction($id)
   {
     $chemin="Article>> voir";
@@ -103,7 +267,7 @@ return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
   }
   public function voirtousAction()
   {
-    $chemin="Article>> voir"; 
+    $chemin="Article>> Tous"; 
 // On récupère le repository
   $repository = $this->getDoctrine()
                      ->getManager()
@@ -115,29 +279,32 @@ return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
 
     
-  return $this->render('ToubarefaneSiteBundle:Site:voirtous.html.twig', array(
+  return $this->render('ToubarefaneSiteBundle:Site:article.html.twig', array(
       'chemin'       => $chemin,
-    'articles' => $article
+    'articles' => $article,
+      'autrevideo'     => SiteController::getVideo()
   ));
     
   
   }
-    public function magaltoubarefaneAction()
+    public function magalAction()
   {
-    $chemin="Article>> magaltoubarefane"; 
+    $chemin="Article>> Magal"; 
 // On récupère le repository
-  $repository = $this->getDoctrine()
+  $article = $this->getDoctrine()
                      ->getManager()
-                     ->getRepository('ToubarefaneSiteBundle:Article');
+                     ->getRepository('ToubarefaneSiteBundle:Article')
+                     ->getMagal();
 
   // On récupère l'entité correspondant à l'id $id
-  $article = $repository->findAll();
+  //$article = $repository->findAll();
 
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
 
     
-  return $this->render('ToubarefaneSiteBundle:Site:magaltoubarefane.html.twig', array(
+  return $this->render('ToubarefaneSiteBundle:Site:article.html.twig', array(
       'chemin'       => $chemin,
+       'autrevideo'     => SiteController::getVideo(),
     'articles' => $article
   ));
     
@@ -145,21 +312,23 @@ return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
   }
   public function almouridiyaAction()
   {
-    $chemin="Article>> tous"; 
+    $chemin="Article>> Almouridiya"; 
 // On récupère le repository
-  $repository = $this->getDoctrine()
+  $article = $this->getDoctrine()
                      ->getManager()
-                     ->getRepository('ToubarefaneSiteBundle:Article');
+                     ->getRepository('ToubarefaneSiteBundle:Article')
+                     ->getAlmouridiya();
 
   // On récupère l'entité correspondant à l'id $id
-  $article = $repository->findAll();
+ // $article = $repository->findAll();
 
   // $article est donc une instance de Sdz\BlogBundle\Entity\Article
 
     
-  return $this->render('ToubarefaneSiteBundle:Site:almouridiya.html.twig', array(
+  return $this->render('ToubarefaneSiteBundle:Site:article.html.twig', array(
       'chemin'       => $chemin,
-    'articles' => $article
+       'autrevideo'     => SiteController::getVideo(),
+       'articles' => $article
   ));
     
   
@@ -185,112 +354,15 @@ return $this->redirect($this->generateUrl('toubarefanevideo_ac'));
     
   
   }
-  public function ajouterAction()
-  {
-     
-
-     $article = new Article;
-     $chemin="Artcle>> ajouter";
-    // On crée le formulaire grâce à l'ArticleType
-    $form = $this->createForm(new ArticleType(), $article);
-
-    // On récupère la requête
-    $request = $this->getRequest();
-
-    // On vérifie qu'elle est de type POST
-    if ($request->getMethod() == 'POST') {
-      // On fait le lien Requête <-> Formulaire
-      $form->bind($request);
-
-      // On vérifie que les valeurs entrées sont correctes
-      // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-      if ($form->isValid()) {
-  // Ici : On traite manuellement le fichier uploadé
-  $article->getImage()->upload();
-
-  // Puis, le reste de la méthode, qu'on avait déjà fait
-  $em = $this->getDoctrine()->getManager();
-  $em->persist($article);
-  $em->flush();
-
-        // On définit un message flash
-        $this->get('session')->getFlashBag()->add('info', 'Article bien ajouté');
-
-        // On redirige vers la page de visualisation de l'article nouvellement créé
-        return $this->redirect($this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())));
-      }
-    }
-    return $this->render('ToubarefaneSiteBundle:Site:ajouter.html.twig',array('chemin'=> $chemin,'form' => $form->createView()));
-  }
   
- public function modifierAction(Article $article)
-  {
-    // On utiliser le ArticleEditType
-    $form = $this->createForm(new ArticleEditType(), $article);
-    $chemin="Article>> modifier";
-    $request = $this->getRequest();
-
-    if ($request->getMethod() == 'POST') {
-      $form->bind($request);
-
-      if ($form->isValid()) {
-        // On enregistre l'article
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($article);
-        $em->flush();
-
-        // On définit un message flash
-        $this->get('session')->getFlashBag()->add('info', 'Article bien modifié');
-
-        return $this->redirect($this->generateUrl('toubarefanesite_voir', array('id' => $article->getId())));
-      }
-    }
-
-    return $this->render('ToubarefaneSiteBundle:Site:modifier.html.twig', array(
-      'form'    => $form->createView(),
-      'chemin'       => $chemin,
-    ));
-  }
-
-  public function supprimerAction(Article $article)
-  {
-    // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-    // Cela permet de protéger la suppression d'article contre cette faille
-    $form = $this->createFormBuilder()->getForm();
-    $chemin="Article>> supprimer";
-    $request = $this->getRequest();
-    if ($request->getMethod() == 'POST') {
-      $form->bind($request);
-
-      if ($form->isValid()) {
-        // On supprime l'article
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($article);
-        $em->flush();
-
-        // On définit un message flash
-        $this->get('session')->getFlashBag()->add('info', 'Article bien supprimé');
-
-        // Puis on redirige vers l'accueil
-        return $this->redirect($this->generateUrl('toubarefanesite_accueil'));
-      }
-    }
-
-    // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-    return $this->render('ToubarefaneSiteBundle:Site:supprimer.html.twig', array(
-      'article' => $article,
-        'chemin'       => $chemin,
-      'form'    => $form->createView()
-    ));
-  }
-
+ 
   // On modifie voirAction, car elle existe déjà
   public function sendMailAction($pseudo){
     $mailer = $this->get('mailer');
 $contenu = $this->renderView('ToubarefaneSiteBundle:Site:email.txt.twig', array(
   'pseudo' => $pseudo
 ));
-
+// $nbParPage = $this->container->getParameter('tbrsite.nombre_par_page');
 // Puis on envoie l'e-mail, par exemple :
 //mail('refane@live.fr', 'Inscription OK', $contenu);
     // Création de l'e-mail : le service mailer utilise SwiftMailer, donc nous créons une instance de Swift_Message
@@ -309,26 +381,7 @@ $contenu = $this->renderView('ToubarefaneSiteBundle:Site:email.txt.twig', array(
 
 // Ajoutez cette méthode ajouterAction :
   
-public function headAction()
-  {
-    
-   $image=array('url'=>'http://uploads.siteduzero.com/icones/478001_479000/478657.png');
-  return $this->render('::layout.html.twig', array(
-    'image' => $image
-  ));
-    
-  
-  }
-public function footAction()
-  {
-    
-    
-  return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
-    'image' => $image
-  ));
-    
-  
-  }
+
    public function contactAction()
     {
         $form = $this->get('form.factory')->create(new ContactType());
@@ -336,6 +389,7 @@ public function footAction()
          // Get the request
         $request = $this->get('request');
     $message=null;
+     $monmail = $this->container->getParameter('mailer_user');
     $chemin="Contact>>";
         // Check the method
         if ($request->getMethod() == 'POST')
@@ -349,7 +403,7 @@ public function footAction()
                 ->setContentType('text/html')
                 ->setSubject($data['sujet'])
                 ->setFrom($data['email'])
-                ->setTo('diopref@gmail.com')
+                ->setTo($monmail)
                 ->setBody($data['contenu']);
 
             $this->get('mailer')->send($message);

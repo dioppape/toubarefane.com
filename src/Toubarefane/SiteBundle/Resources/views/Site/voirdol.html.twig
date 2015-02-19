@@ -1,0 +1,79 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
+
+{% block title %}
+  Dol Khassida - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+<style type="text/css">
+
+#article 
+  {  
+   
+    height: 500px;
+    overflow: hidden;
+    margin: 0 auto;
+      
+    }
+
+ #article section 
+  {
+    float: left;
+    border: 5px solid #fff;
+    margin-right: 20px;
+    cursor: pointer;
+    }
+span{
+       cursor: pointer;
+    }
+
+</style>
+<div class="col-md-10 col-xs-12 col-lg-10">
+    
+          <div class="col-xd-4 col-md-10 col-lg-2" >
+        <bouton  class="previous" id="prev"><a href="#"><span class="glyphicon glyphicon-backward"></span> Précédent</a></bouton>
+            
+    </div>
+    <div class="col-lg-7 col-xs-12 col-md-10" >
+                    
+                        <div id="article"> 
+                     
+        
+                      {% for allimages in images %}
+                      {# On vérifie qu'une image soit bien associée à l'article #}
+                       {% if allimages is not null %}
+                            
+                          <section>
+                           
+                              <img class="img dolimg img-responsive img-thumbnail" src="{{ asset(allimages.uploadDir ~ '/' ~ allimages.url) }}" />
+                            <small>{{ allimages.alt }}</small> 
+                          </section>
+                          
+                        {% endif %}
+                            
+                        {% endfor %}
+                      
+                      </div>
+     </div>
+ <div class="col-xd-4 col-md-2 col-lg-2" ></div>
+ <bouton class="next" id="next" style="margin-left:40px"><a href="#">Suivant <span class="glyphicon glyphicon-forward"></span></a></bouton>
+</div>
+<div class="col-md-2 col-lg-2 col-xs-12">
+    <bouton class="play" id="play"><a href="#">Diapo <span id="splay" class="glyphicon glyphicon-play"></span></a></bouton>
+    <div class="progress progress-striped" style="position:relative;width: 100px">
+                               
+                                <div id="op" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0"aria-valuemax="100" style="position: absolute;width:1%">
+                              </div>
+                                <span id="minus"  class="glyphicon glyphicon-minus" style="position: absolute;float:left">&nbsp;&nbsp;&nbsp;1s</span>
+                               <span id="plus"  class="glyphicon glyphicon-plus" style="float:right"></span>
+                               </div>
+      <div class="fb-share-button"
+     data-href="http://toubarefane.com/dol/wakana#"
+     data-type="box_count">
+</div>          <div class="twitter"><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+<a href="http://www.toubarefane.com/" class="twitter-share-button">Tweet</a>
+           </div>
+                          </div>
+{% endblock %}

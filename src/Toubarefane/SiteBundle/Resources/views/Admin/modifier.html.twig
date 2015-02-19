@@ -10,7 +10,7 @@
 
   <h2>Modifier un article</h2>
 
-  {% include "ToubarefaneSiteBundle:Site:formulaire.html.twig" %}
+  {% include "ToubarefaneSiteBundle:Admin:formulaire.html.twig" %}
 
   <p>
     Vous éditez un article déjà existant,
@@ -18,5 +18,10 @@
     aux membres de ne pas comprendre
     ce qu'il se passe.
   </p>
-
+  <p>
+  <a href="{{ path('toubarefaneadmin_voirtous') }}" type="button" class="btn btn-info">
+   <i class="icon-chevron-left"></i>
+    Retour à la liste
+    </a>
+  </p>
 {% endblock %}

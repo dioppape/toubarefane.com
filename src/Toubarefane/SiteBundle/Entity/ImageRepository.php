@@ -11,5 +11,35 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class ImageRepository extends EntityRepository
-{
+{   
+    public function getPhoto(){
+        $query="select c from ToubarefaneSiteBundle:Image c where c.type='photo' order by c.id DESC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getWakana(){
+        $query="select c from ToubarefaneSiteBundle:Image c where c.type='wakana' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getMarakhib(){
+        $query="select c from ToubarefaneSiteBundle:Image c where c.type='marakhib' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getTaysir(){
+        $query="select c from ToubarefaneSiteBundle:Image c where c.type='taysir' order by c.id ASC";
+        
+        return $this->getEntityManager()->createQuery($query)->getResult();
+    }
+    public function getImage($motcle){
+        $query="select a from ToubarefaneSiteBundle:Image a WHERE a.url like '%$motcle%' or a.alt like '%$motcle%' and a.type='photo' order by a.id ASC";
+         
+        return $this->getEntityManager()->createQuery($query)->getResult();
+  }
+  public function getDol($motcle){
+        $query="select a from ToubarefaneSiteBundle:Image a WHERE a.url like '%$motcle%' or a.alt like '%$motcle%' and a.type!='photo' order by a.id ASC";
+         
+        return $this->getEntityManager()->createQuery($query)->getResult();
+  }
 }

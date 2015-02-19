@@ -23,7 +23,8 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*@dev",
         "doctrine/data-fixtures": "@dev",
 		"friendsofsymfony/user-bundle": "dev-master",
-                "stof/doctrine-extensions-bundle": "dev-master"
+                "stof/doctrine-extensions-bundle": "dev-master",
+                "friendsofsymfony/jsrouting-bundle": "@stable"
 
     },
     "scripts": {

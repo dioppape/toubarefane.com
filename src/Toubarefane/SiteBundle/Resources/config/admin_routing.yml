@@ -1,6 +1,6 @@
 # src/Toubarefane/SiteBundle/Resources/config/routing.yml
 toubarefaneadmin_login:
-    path:      /accueil
+    path:      /admin/accueil
     defaults:  { _controller: ToubarefaneSiteBundle:Admin:login }
    
 toubarefaneadmin_accueil:
@@ -15,18 +15,25 @@ toubarefaneadmin_voir:
     requirements:
         id:  \d+
 toubarefaneadmin_voirtous:
-    path:      /articles
+    pattern:      /articles
     defaults:  { _controller: ToubarefaneSiteBundle:Admin:voirtous }
-toubarefaneadmin_ajouter:
-    path:      /ajouter
-    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouter }
+toubarefaneadmin_ajouterother:
+    path:      /ajouterother
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouterother }
+toubarefaneadmin_ajouteryoutube:
+    path:      /ajouteryoutube
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouteryoutube }
 
 toubarefaneadmin_modifier:
     path:      /modifier/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifier }
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifierother }
     requirements:
         id:  \d+
-
+toubarefaneadmin_modifieryoutube:
+    path:      /modifieryou/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifieryoutube }
+    requirements:
+        id:  \d+
 toubarefaneadmin_supprimer:
     path:      /supprimer/{id}
     defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimer }
@@ -40,26 +47,72 @@ toubarefaneadmin_sendMail:
 toubarefaneadmin_contact:
     path:      /contact
     defaults:  { _controller: ToubarefaneSiteBundle:Admin:contact }
-toubarefanephoto_ajouter:
+toubarefaneadmin_ajouterreview:
+    path:      /ajouter_review
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:create }
+   #route des photos     
+toubarefaneadmin_ajouterphoto:
     path:      /ajouter_photo
-    defaults:  { _controller: ToubarefaneSiteBundle:Photo:ajouter }
-
-toubarefanephoto_voir:
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouterphoto }
+toubarefaneadmin_voirphoto:
     path:      /voir_photo/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voir }
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:voirphoto }
     requirements:
         id:  \d+
-toubarefanephoto_tous:
-    path:      /photo/tous
-    defaults:  { _controller: ToubarefaneSiteBundle:Photo:voirtous }
-toubarefanephoto_supprimer:
+toubarefaneadmin_tousphoto:
+    path:      /tous_photo
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:tousphoto }
+toubarefaneadmin_supprimerphoto:
     path:      /supprimer_photo/{id}
-    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimer }
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimerphoto }
     requirements:
         id:  \d+
-toubarefaneaudio_ajouter:
+
+        
+    #route des audios
+toubarefaneadmin_ajouteraudio:
     path:      /ajouter_audio
-    defaults:  { _controller: ToubarefaneSiteBundle:Audio:ajouter }
-toubarefanevideo_ajouter:
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajouteraudio }
+toubarefaneadmin_tousaudio:
+    path:      /tous_audio
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:tousaudio }
+toubarefaneadmin_supprimeraudio:
+    path:      /supprimer_audio/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimeraudio }
+    requirements:
+        id:  \d+
+toubarefaneadmin_modifieraudio:
+    path:      /modifier_audio/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifieraudio }
+    requirements:
+        id:  \d+
+
+    #route des videos
+toubarefaneadmin_ajoutervideo:
     path:      /ajouter_video
-    defaults:  { _controller: ToubarefaneSiteBundle:Video:ajouter }
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:ajoutervideo }
+toubarefaneadmin_tousvideo:
+    path:      /tous_video
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:voirtousvideo }
+toubarefaneadmin_supprimervideo:
+    path:      /supprimer_video/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:supprimervideo }
+    requirements:
+        id:  \d+
+toubarefaneadmin_modifiervideo:
+    path:      /modifier_video/{id}
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:modifiervideo }
+    requirements:
+        id:  \d+
+        
+        #graphe   gaz 03046                    edf 50153
+ 
+toubarefaneadmin_flot:
+    path:      /flot
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:flot }
+toubarefaneadmin_morris:
+    path:      /morris
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:morris }
+toubarefaneadmin_table:
+    path:      /table
+    defaults:  { _controller: ToubarefaneSiteBundle:Admin:table }

@@ -1,0 +1,9 @@
+body{
+	background-color: #666;
+	float: left;
+	padding: 10px 5px 5px 10px 5px;
+}
+.l-img{
+	width: 700px;
+	height: 400px;
+}

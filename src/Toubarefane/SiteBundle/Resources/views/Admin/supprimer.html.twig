@@ -15,8 +15,8 @@
   </p>
 
   {# On met l'id de l'article dans la route de l'action du formulaire #}
-  <form action="{{ path('toubarefanesite_supprimer', {'id': article.id}) }}" method="post">
-    <a href="{{ path('toubarefanesite_voir', {'id': article.id}) }}" class="btn">
+  <form action="{{ path('toubarefaneadmin_supprimer', {'id': article.id}) }}" method="post">
+    <a href="{{ path('toubarefaneadmin_voir', {'id': article.id}) }}" type="button" class="btn btn-info">
       <i class="icon-chevron-left"></i>
       Retour à l'article
     </a>

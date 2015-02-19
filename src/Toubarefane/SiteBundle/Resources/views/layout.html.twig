@@ -10,13 +10,14 @@
 
   {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
   {% if chemin is not null %}
-    {{ chemin }}
+  
+       
   {% endif %}
 
-  <hr>
-
+  
   {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
   {% block toubarefanesite_body %}
   {% endblock %}
 
 {% endblock %}
+  

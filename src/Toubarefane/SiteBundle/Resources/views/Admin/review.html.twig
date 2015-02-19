@@ -1,0 +1,30 @@
+{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
+
+{% extends "ToubarefaneSiteBundle::layoutAdmin.html.twig" %}
+
+{% block title %}
+  Lecture d'un article - {{ parent() }}
+{% endblock %}
+
+{% block toubarefanesite_body %}
+<div class="well">
+  <form method="post" {{ form_enctype(form) }}>
+<fieldset>
+    <legend>Media</legend>
+    <div class="form_field">
+        {{ form_label(form.images) }}
+        {{ form_widget(form.images, { 'full_name': 'kmv_ampbundle_review[images]' ~ '[]' }) }}
+        {% if errorMessages is defined %}
+            <ul class="error">
+            {% for errorMessage in errorMessages %}
+                <li>{{ errorMessage }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+   
+</fieldset>
+<input type="submit" class="btn btn-primary" />
+  </form>
+</div>
+{% endblock %}

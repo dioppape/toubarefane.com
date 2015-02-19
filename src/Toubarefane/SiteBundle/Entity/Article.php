@@ -61,9 +61,9 @@ class Article
   
  
   /**
-   * @ORM\OneToOne(targetEntity="Toubarefane\SiteBundle\Entity\Image", cascade={"persist", "remove"})
+   * @ORM\OneToOne(targetEntity="Toubarefane\SiteBundle\Entity\File", cascade={"persist", "remove"})
    */
-  private $image;
+  private $file;
 
   /**
    * @ORM\ManyToMany(targetEntity="Toubarefane\SiteBundle\Entity\Categorie", cascade={"persist"})
@@ -84,10 +84,7 @@ class Article
     $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
   }
   
-  /**
-   * @ORM\preUpdate
-   * Callback pour mettre à jour la date d'édition à chaque modification de l'entité
-   */
+  
   public function updateDate()
   {
     $this->setDateEdition(new \Datetime());
@@ -217,29 +214,7 @@ class Article
         return $this->publication;
     }
 
-    /**
-     * Set image
-     *
-     * @param \Toubarefane\SiteBundle\Entity\Image $image
-     * @return Article
-     */
-    public function setImage(\Toubarefane\SiteBundle\Entity\Image $image)
-    {
-        $this->image = $image;
-    
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \Toubarefane\SiteBundle\Entity\Image 
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
+   
     /**
      * Set dateEdition
      *
@@ -327,5 +302,28 @@ class Article
     public function getCommentaires()
     {
         return $this->commentaires;
+    }
+
+    /**
+     * Set file
+     *
+     * @param \Toubarefane\SiteBundle\Entity\File $file
+     * @return Article
+     */
+    public function setFile(\Toubarefane\SiteBundle\Entity\File $file = null)
+    {
+        $this->file = $file;
+    
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return \Toubarefane\SiteBundle\Entity\File 
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

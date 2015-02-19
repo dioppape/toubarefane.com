@@ -31,9 +31,16 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="alt", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    private $alt;
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
 
     /**
      * @var string
@@ -76,28 +83,6 @@ class Video
         return $this->embeded;
     }
 
-    /**
-     * Set alt
-     *
-     * @param string $alt
-     * @return Video
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-    
-        return $this;
-    }
-
-    /**
-     * Get alt
-     *
-     * @return string 
-     */
-    public function getAlt()
-    {
-        return $this->alt;
-    }
 
     /**
      * Set category
@@ -120,5 +105,51 @@ class Video
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Video
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Video
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

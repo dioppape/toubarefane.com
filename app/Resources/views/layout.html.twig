@@ -1,200 +1,269 @@
-{# app/Resources/views/layout.html.twig #}
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html lang="fr">
 
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="/toubarefane/web/favicon.ico.png" />
     <title>{% block title %}Toubarefane{% endblock %}</title>
 
     {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('styles/layout.css') }}" type="text/css" />
-      
-      <link rel="stylesheet" type="text/css" href="{{ asset('lecteuraudio/css/html5audio.css') }}" />
-        
+    
+     <!-- lecteur audio -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('lecteuraudio/css/jquery.jscrollpane.css') }}" media="all" />
+    <link href="{{asset('lecteuraudio/css/html5audio.css')}}" rel="stylesheet">
+    <link href="{{ asset('bootstrap/css/bootstrap.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('bootstrap/css/plugins/metisMenu/metisMenu.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Timeline CSS -->
+    <link href="{{ asset('bootstrap/css/plugins/timeline.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/tbr-site-2.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('bootstrap/css/plugins/morris.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('bootstrap/font-awesome-4.1.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     {% endblock %}
-   
   </head>
 
   <body>
-  <div id="site-container">
-  <div id="header">
-    <ul>
-          <li class="fl_left">
-          </li>
-          <li class="fl_center">
-          </li>
-          <li class="fl_right">
-          </li>
-        </ul>
-      <br class="clear" />
-      <p align="center"><marquee><h1>&nbsp;&nbsp;&nbsp;واجعل قلوبنا على التّوادد  بلا تنازع ولا تحاسد &nbsp;&nbsp;&nbsp;&nbsp;</h1></marquee></p>
-    
-  </div>
+     
+    <div id="wrapper">
 
-<!-- ####################################################################################################### -->
-<div class="wrapperm col2">
-  <div id="topbar">
-    <div id="topnav">
-      <ul>
-        <li class="active"><a href="{{ path('toubarefanesite_accueil')}}">Accueil</a></li>
-        <li><a href="#">Audios</a>
-          <ul>
-            <li><a href="{{ path('toubarefaneaudio_kh')}}">Kourel</a></li>
-            <li><a href="{{ path('toubarefaneaudio_radias')}}">Radias</a></li>
-            <li><a href="{{ path('toubarefaneaudio_coran')}}">Coran</a></li>
-            <li><a href="{{ path('toubarefaneaudio_wakhtane')}}">Wakhtane</a></li>
-            <li><a href="{{ path('toubarefaneaudio_segnesam')}}">Serigne Sam Mbaye</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Videos</a>
-          <ul>
-            <li><a href="{{ path('toubarefanevideo_kh')}}">Khassida</a></li>
-            <li><a href="#">Wakhtane</a></li>
-            <li><a href="#">Autres Vidéos</a></li>
-          </ul>
-        </li>
-         <li><a href="{{ path('toubarefanesite_album')}}">Photos</a></li>
-           <li class="last"><a href="{{ path('toubarefanesite_magaltoubarefane')}}">Magal de Touba Refane</a></li>
-          <li class="last"><a href="{{ path('toubarefanesite_almouridiya')}}">Al Mouridiyyah</a></li>
-        <li class="last"><a href="{{ path('toubarefanesite_contact')}}">Contact</a></li>
-      </ul>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default" style=" margin-bottom: 0px;" role="navigation">
+           
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only-focusable">Menu</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+            <div class="col-lg-12">
+                <a class="logoleft col-lg-2 col-md-2 hidden-xs " href="{{ path('toubarefanesite_accueil')}}"></a>
+                <a class="lecheikh col-xs-12 col-lg-4 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                {#
+                 <a class="khalif col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                 <a class="petitfils col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                   #}
+                 <a class="petitfils col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                 <a class="mamecheikh col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                 <a class="fille col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                 
+                 <a class="khalif col-xs-12 col-lg-1 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+                 <a class="logo col-xs-12 col-lg-2 col-md-2 hidden-xs" href="{{ path('toubarefanesite_accueil')}}"></a>
+               
+            </div>
+            <!-- /.navbar-header 
+            <ul class="navbar  collapse navbar-collapse  nav-justified  col-xs-12 col-md-12 col-lg-12 m">-->
+
+            <ul class="navbar collapse navbar-collapse  nav-tabs navbar-top-links navbar-right col-xs-12 col-md-12 col-lg-12 m">
+                <li class="dropdown btn">
+                   <a href="{{ path('toubarefanesite_accueil')}}"><span class="glyphicon glyphicon-home"></span> Accueil</a>
+                </li>
+               
+                <!-- /.dropdown -->
+               <li class="dropdown btn">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-music"></span> Audio <b class="caret"></b><span class="fa btn"></span></a>
+                            <ul class="dropdown-menu sm">
+                                 <li><a href="{{ path('toubarefaneaudio_coran') }}">Coran</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_kourel') }}">Kourel</a></li>
+                                  <li><a href="{{ path('toubarefaneaudio_maggni') }}">Maggni</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_radias') }}">Radias</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_segnesam') }}">Serigne Sam</a></li>
+                                  <li><a href="{{ path('toubarefaneaudio_segnesaliou') }}">Serigne Saliou Sow</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_wakhtane') }}">Wakhtane</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_zikr') }}">Zikr</a></li>
+                            </ul>
+                    <!-- /.dropdown -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown btn">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-film"></span> Video <b class="caret"></b><span class="fa btn"></span></a>
+                            <ul class="dropdown-menu sm">
+                                 <li><a href="{{ path('toubarefanevideo_kh') }}">Khassida</a></li>
+                                 <li><a href="{{ path('toubarefanevideo_wakhtane') }}">Wakhtane</a></li>
+                                 <li><a href="{{ path('toubarefanevideo_autre') }}">Divers </a></li>
+
+                            </ul>
+                    <!-- /.dropdown -->
+                </li>
+                <li class=" dropdown btn">
+                   <a  href="{{ path('toubarefanephoto_tous')}}"><span class="glyphicon glyphicon-picture"></span> Photo</a>
+                </li>
+                <li class="dropdown btn">
+                   <a  href="{{ path('toubarefanedol_tous')}}"><span class="glyphicon glyphicon-open"></span> Dol Khassida</a>
+                </li>
+                 <li class="menu-item dropdown btn">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-file"></span> Tèré Xam-Xam <b class="caret"></b></a>
+                            <ul class="dropdown-menu sm">
+                               <li class="menu-item dropdown dropdown-submenu"><a href="#">Serigne Abdou Rahmane</a>
+                                  <ul class="dropdown-menu">
+                                    <li><a href="{{ path('toubarefaneaudio_nahjou_sa') }}">Nahdjou</a></li>
+                                 <li><a href="{{ path('toubarefaneaudio_jawhar_sa') }}">Jawharou Nafis </a></li>
+                                  <li><a href="{{ path('toubarefaneaudio_massalik_sa') }}">Massalik</a></li>
+                                  </ul>
+                                 </li>
+                                 
+                                 <li class="menu-item dropdown dropdown-submenu"><a href="#">Mame Mor Kham Sa Diné </a>
+                                 <ul class="dropdown-menu sm">
+                                     <li><a href="{{ path('toubarefaneaudio_sikhar_kh') }}">Wakhtane</a></li>
+                                     <li><a href="{{ path('toubarefaneaudio_soubane_kh') }}">Autre</a></li>
+
+                            </ul></li>
+
+                            </ul>
+                    <!-- /.dropdown -->
+                </li>
+                
+                
+                <li class="dropdown btn">
+                   <a  href="{{ path('toubarefanesite_almouridiya')}}"><span class="glyphicon glyphicon-random"></span> Almouridiya</a>
+                </li>
+                <li class="dropdown btn">
+                   <a  href="{{ path('toubarefanesite_contact')}}"><span class="glyphicon glyphicon-phone"></span> Contact</a>
+                </li>   
+                
+                <!-- /.dropdown 
+                <li style="width: 140px">
+                           
+                                <form class="sidebar-search input-group custom-search-form" action="{{ path("toubarefanesite_article_rechercher") }}" method="post">
+                       
+                                <input type="text" id="motcle" name="motcle" class="form-control input-sm" placeholder="Rechercher...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-sm" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                 
+                               </span>
+                                </form>
+                           
+                            <!-- /input-group 
+                </li>
+                            -->
+            </ul>
+             <!-- /.navbar-top-links -->
+        </nav>
+           
+       
+        <div class="container" style=";" >
+      
+      <div class="row">
+        
+        <section class="col-sm-12 col-lg-12 col-md-12 contenu">
+           
+          <div class="row">
+            <marquee class="hidden-xs msg">&nbsp;&nbsp;&nbsp;واجعل قلوبنا على التّوادد  بلا تنازع ولا تحاسد &nbsp;&nbsp;&nbsp;&nbsp;</marquee>
+            {% block body %}
+             {% endblock %}
+           
+            
+          </div>
+        </section>
+      </div>
+   
+   <div class="col-md-12 col-lg-12 col-xs-12" >
+            
+   
+                    <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-desktop fa-fw"></i>
+                           
+                            <div class="btn-group pull-right">
+                              
+                            </div>
+                            <footer>Copyright © 2014 - All Rights Reserved - toubarefane.com</footer>
+                        </div>
+                   </div>
+         </div><!-- /.row -->
+             
     </div>
-       {#
-    <div id="search">
-      <form action="#" method="post">
-        <fieldset>
-          <legend>Recherche</legend>
-          <input type="text" value="Rechercher"  onfocus="this.value=(this.value=='Search Our Website&hellip;')? '' : this.value ;" />
-          <input type="submit" name="go" id="go" value="Rechercher" />
-        </fieldset>
-      </form>
-    </div>
-#}
-      <div id="suivre">
-          <div id="fb-root"></div>
-<script>(function(d, s, id) {
+
+    {% block javascripts %}
+       
+        <!-- jQuery Version 1.11.0 -->
+    <script type="text/javascript" src="{{ asset('js/jquery-1.8.1.min.js')}}"></script>
+     <script type="text/javascript">
+   $('.currency-selector').currency_converter({
+    base : 'INR',
+    target : '.price',
+    currencies : {
+        'INR' : { key : 'INR', rate : 1, format : '{value} INR', label : 'Indian Rupee (INR)' },
+        'GBP' : { key : 'GBP', rate : 100, format : '&pound;{value}', label : 'Pound Sterling (GBP)' },
+        'EUR' : { key : 'EUR', rate : 80, format : '&euro;{value}', label : 'Euro (EUR)' },
+        'USD' : { key : 'USD', rate : 60, format : '${value}', label : 'US Dollar (USD)' }
+    }
+});
+    </script>
+    <!-- TBR JavaScript -->
+    <script type="text/javascript" src="{{ asset('js/tbr-admin.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/tbr-video.js')}}"></script>
+     <script type="text/javascript" src="{{ asset('js/rechercheajax.js')}}"></script>
+     <script type="text/javascript" src="{{ asset('js/anim.js')}}"></script>
+   <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
+     
+    <!-- Metis Menu Plugin JavaScript -->
+    <script type="text/javascript" src="{{ asset('bootstrap/js/plugins/metisMenu/metisMenu.min.js')}}"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script type="text/javascript" src="{{ asset('bootstrap/js/plugins/morris/raphael.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/plugins/morris/morris.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('bootstrap/js/plugins/morris/morris-data.js')}}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="{{ asset('bootstrap/js/sb-admin-2.js')}}"></script>
+ 
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/jquery.mousewheel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/jquery.jscrollpane.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/soundmanager2.js') }}" ></script>
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/jquery.html5audio.min.js') }}"></script>
+        
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/jquery.apPlaylistManager.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('lecteuraudio/js/jquery.apTextScroller.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.devise-converter.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script type="text/javascript">
+  
+   function Lien() {
+	i = document.Choix.Liste.selectedIndex;
+	if (i == 0) return;
+	url = document.Choix.Liste.options[i].value;
+	parent.location.href = url;
+}
+</script>
+  <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-         
-          <div class="fb-like" data-href="http://www.toubarefane.com/accueil/video" data-layout="button_count" data-type="icon" data-action="like" data-show-faces="true" data-share="true"></div>
-           <div class="twitter"><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
-<a href="http://www.toubarefane.com/accueil/video" class="twitter-share-button">Tweet</a>
-
-</div>
-           
-            
-    </div>
-    <br class="clear" />
-  </div>
-</div>
-
-<div class="wrapper col4">
-  <div id="container">
-    
-       <div id="top">
-          {% block body %}
-          {% endblock %}
-        </div>
-   
-    
-    <br class="clear" />
-  </div>
-  <br class="clear" />
-</div>
-
-<!-- ####################################################################################################### -->
-<div class="wrappers col6">
-  <div id="footer">
-    {# <div class="footbox twitter">
-      <h2>Latest From Twitter</h2>
-      <ul>
-        <li><a href="#">@TwitterName</a> nibhpede faucibulum ris phasellentum elit sed hend quisque.  1 day ago</li>
-        <li><a href="#">@TwitterName</a> tellentumst monterdum augue curabitae elit felit, elitligula adipiscingilla. 1 day ago</li>
-        <li><a href="#">@TwitterName</a> libero praesentum sed? 1 day ago</li>
-        <li><a href="#">@TwitterName</a> condimentesque nec facilis pretium tellenterdum. Vivamusid elit curabitur augue. 1 day ago</li>
-        <li><a href="#">@TwitterName</a> ligula sed ipsum in tellentesque donec ac. 1 day ago</li>
-      </ul>
-    </div>
-    <div class="footbox flickr">
-      <h2>Latest From Flickr</h2>
-      <ul>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/80x80.gif') }}" alt="" /></a></li>
-      </ul>
-      <br class="clear" />
-    </div>
-    <div class="footbox posts">
-      <h2>Latest Blog Posts</h2>
-      <ul>
-        <li><a href="#">Lorem ipsum dolor</a></li>
-        <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-        <li><a href="#">Praesent et eros</a></li>
-        <li><a href="#">Praesent et eros</a></li>
-        <li><a href="#">Lorem ipsum dolor</a></li>
-        <li><a href="#">Suspendisse in neque</a></li>
-        <li><a href="#">Phasellus tempor vestibulum</a></li>
-        <li><a href="#">Vestibulum quis augu mauris</a></li>
-        <li class="last"><a href="#">Suspendisse in neque</a></li>
-      </ul>
-    </div>
-    <div class="footbox banners last">
-      <h2>Advertise Here</h2>
-      <ul>
-        <li><a href="#"><img src="{{ asset('images/demo/200x150.gif') }}" alt="" /></a></li>
-        <li><a href="#"><img src="{{ asset('images/demo/200x150.gif') }}" alt="" /></a></li>
-      </ul>
-    </div>
-    <br class="clear" />
-  </div>
-</div>
-#}
- <div id="menuhaut">
-    <ul>
-          <li>
-              <a href="{{ path('toubarefaneaudio_kh')}}">Forum</a>
-          </li>
-            
-          <li>
-              <a href="{{ path('toubarefaneaudio_kh')}}">TV</a>
-          </li>
-          <li>
-              <a href="{{ path('toubarefaneaudio_kh')}}">Radio</a>
-          </li>
-        </ul>
      
-  </div>
-<!-- ####################################################################################################### -->
-<div class="wrapperc col7">
-  <div id="copyright">
-    <p class="fl_left">Copyright &copy; 2014 - All Rights Reserved - <a href="#">toubarefane.com</a></p>
-    <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">diopref</a></p>
-    <br class="clear" />
-  </div>
-    
-</div>
-  </div>
-{% block javascripts %}
-    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    
-        <script type="text/javascript" src="{{ asset('"http://code.jquery.com/jquery-1.8.2.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery-1.8.1.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.mousewheel.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.jscrollpane.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('lecteuraudio/js/soundmanager.js') }}" ></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.html5audio.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.apPlaylistManager.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery.apTextScroller.min.js') }}"></script>
-       
+
+     
   {% endblock %}
-        
-</body>
+
+  </body>
+
 </html>

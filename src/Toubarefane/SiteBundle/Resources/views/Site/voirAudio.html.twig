@@ -3,12 +3,113 @@
 {% extends "ToubarefaneSiteBundle::layout.html.twig" %}
 
 {% block title %}
-  Lecture d'un article - {{ parent() }}
+Audios - {{ parent() }}
 {% endblock %}
 
 {% block toubarefanesite_body %}
-
-{% if image is not null %}
-    <img src="{{ asset(image.uploadDir ~ '/' ~ image.url) }}" alt="{{ image.alt }}" />
-  {% endif %}
+ 
+    <!-- ############## BODY CODE ############## -->
+<!-- wrapper for the whole component --> <!-- conteneur du player audio -->
+<header class="panel panel-info" style="font-family:inherit ; font-weight:bold; text-transform: uppercase;color: #000;"> {{chemin | replace({'Video>>': ''})}}</header>
+     
+<div class="col-lg-8 col-md-8 col-xs-12">
+     
+<div id="componentWrapper"  style="">
+        
+<div class="playerHolder">
+                 
+                  <div class="player_controls">
+                  	  <!-- previous -->
+                      <div class="controls_prev"><img src="{{ asset('lecteuraudio/img/prev.png') }}" width='33' height='33' alt='controls_prev'/></div>
+                      <!-- pause/play -->
+                      <div class="controls_toggle"><img src="{{ asset('lecteuraudio/img/play.png') }}" width='33' height='33' alt='controls_toggle'/></div>
+                      <!-- next -->
+                      <div class="controls_next"><img src="{{ asset('lecteuraudio/img/next.png') }}" width='33' height='33' alt='controls_next'/></div>
+                      
+                 	  <!-- volume -->
+                      <div class="player_volume"><img src="{{ asset('lecteuraudio/img/volume.png') }}" width='33' height='33' alt='player_volume'/></div>
+                      <div class="volume_seekbar">
+                         <div class="volume_bg"></div>
+                         <div class="volume_level"></div>
+                      </div>
+                      
+                      <!-- loop -->
+                      <div class="player_loop"><img src="{{ asset('lecteuraudio/img/loop_on.png') }}" width='33' height='33' alt='player_loop'/></div>
+                      <!-- shuffle -->
+                      <div class="player_shuffle"><img src="{{ asset('lecteuraudio/img/shuffle.png') }}" width='33' height='33' alt='player_shuffle'/></div>
+                  </div>
+                  
+                  <!-- progress -->
+                  <div class="player_progress">
+                      <div class="progress_bg"></div>
+                      <div class="load_progress"></div>
+                      <div class="play_progress"></div>
+                  </div>
+                 
+                  <!-- song name -->
+                  <div class="player_mediaName_Mask">
+                 	  <div class="player_mediaName">Artist Name - Artist Title</div>
+                  </div>
+                  
+                  <!-- song time -->
+                  <div class="player_mediaTime">
+                  	  <!-- current time and total time are separated so you can change the design if needed. -->
+                  	  <div class="player_mediaTime_current">0:00&nbsp;-&nbsp;</div><div class="player_mediaTime_total">0:00</div>
+                  </div>
+                  
+                  <!-- volume tooltip -->
+                  <div class="player_volume_tooltip">
+                      <div class="player_volume_tooltip_value">0</div>
+                  </div>
+                  
+                  <!-- progress tooltip -->
+                  <div class="player_progress_tooltip">
+                    <div class="player_progress_tooltip_value">0:00&nbsp;/&nbsp;0:00</div>
+                  </div>
+             
+      </div>
+              
+<div class="playlistHolder">
+                 <div class="componentPlaylist">
+                	 <!-- playlist_inner: container for scroll -->
+                     <div class="playlist_inner">
+                     
+                     	 <!-- List of playlists. NO EXTENSION for music file names! -->
+                     
+                         <!-- Playlist -->
+                        <ul id='playlist1' data-type='local'>
+                             {% for audios in audios %}
+                              <li class= "playlistItem" data-path="{{ asset(audios.uploadDir ~ '/' ~ audios.url) | replace({'.mp3': "",'.ogg': "" })  }}">
+                                     <a  href="#" class="playlistNonSelected">
+                                         {{ audios.url }}
+                                      </a>
+                                  </li>
+                              
+                               {% endfor %}
+                        </ul>
+                       
+                     </div>
+                 </div>
+      </div>
+             
+             <!-- for parsing podcast feeds -->
+             <div class="feedParser"></div>
+         <!-- font calculations -->
+       		 <div class="fontMeasure"></div>
+    	</div>
+</div>
+<div class="col-lg-2 col-md-2 col-xs-12">
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+ <div class="fb-share-button"
+     data-href="http://toubarefane.com/audio/kourel"
+     data-type="box_count">
+</div>
+</div>
 {% endblock %}

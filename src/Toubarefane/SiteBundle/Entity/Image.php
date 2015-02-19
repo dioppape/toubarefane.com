@@ -28,6 +28,11 @@ class Image
    */
   private $alt;
 
+/**
+   * @ORM\Column(name="type", type="string", length=255)
+   */
+  private $type;
+
 
   private $file;
 
@@ -49,6 +54,7 @@ class Image
 
     // On crée également le futur attribut alt de notre balise <img>
     $this->alt = $this->getAlt();
+     $this->type = $this->getType();
   }
 
   public function getUploadDir()
@@ -116,6 +122,28 @@ class Image
     public function getAlt()
     {
         return $this->alt;
+    }
+       /**
+     * Set alt
+     *
+     * @param string $alt
+     * @return Image
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get alt
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
      /**
      * Set file

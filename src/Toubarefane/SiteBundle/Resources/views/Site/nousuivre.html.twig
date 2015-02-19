@@ -1,0 +1,66 @@
+
+<div class="col-lg-3 col-md-3 col-xs-12 panel panel-info" style="padding-top: 15px;">
+  <div class="col-lg-12 col-md-12 col-xs-12 panel panel-info" >                     
+    <header class="col-lg-12 col-md-12 col-xs-12 bg-panneau"> Nous Suivre</header>
+                        
+<div class="col-md-2 col-lg-2 col-xs-12 ">
+    <div class="col-md-6 col-lg-6 col-xs-12">
+     
+          <div id="fb-root"></div>
+
+ <div class="fb-share-button"
+     data-href="http://toubarefane.com"
+     data-type="box_count">
+</div></div>
+    <div class="col-md-6 col-lg-6 col-xs-12 panel">
+       
+                 <div class="twitter"><script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+                  <a href="http://www.toubarefane.com" class="twitter-share-button"></a>
+                 </div>
+                 </div>
+              
+ </div>
+  </div>
+            <div class="panel panel-info col-lg-12 col-md-12 col-xs-12">
+                 <div class="panel col-lg-12 col-md-12 col-xs-12">
+                <label class="bg-panneau">Choix de vos critères</label>
+                <FORM NAME="Choix">
+                   
+
+                <select class="panel panel-info" type="choice" id="obj" name="choice" onChange="javascript:selectThis(this);">
+                    <option value="tous">Tous</option>
+                    <option value="article">Article</option>
+                    <option value="video">Video</option>
+                    <option value="audio">Audio</option>
+                    <option value="dol">Dol khassida</option>
+                    <option value="photo">Photo</option>
+                </select>
+             </FORM>        
+            <form class="sidebar-search input-group custom-search-form" action="{{ path("toubarefanesite_article_rechercher") }}" method="post">
+                       
+                                <input type="text" id="motcle" name="motcle" class="form-control input-sm" placeholder="Rechercher...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-sm" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                 
+                               </span>
+                                </form>
+           </div>
+          </div>   
+           <div class="panel col-lg-12 col-md-12 col-xs-12 panel panel-info"> 
+                               
+                           
+                            <!-- /input-group{
+                            'bonjour' | trans({},'langue','en') }} -->
+              
+     
+     <div class="resultat2"></div>
+           
+  
+     <div class="resultat"></div>   
+   
+ 
+   </div>
+ 
+</div>

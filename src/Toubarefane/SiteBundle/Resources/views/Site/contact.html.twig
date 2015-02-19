@@ -1,4 +1,4 @@
-{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
++{# src/Toubarefane/SiteBundle/Resources/views/Site/modifier.html.twig #}
 
 {% extends "ToubarefaneSiteBundle::layout.html.twig" %}
 
@@ -10,24 +10,55 @@
   {% if message is not null %}
     {{ message }}
   {% endif %}
-  <div id="contact">
-      <h2>Nous contactez</h2>
-      <div id="tel">
-       <h1>Pour tous suggestions et informations</h1>
-       <p>Tel: 0033619462854</p>
-       <p>Tel: 0033644046658</p>
-       <p>Email: info@toubarefane.com</p>
-       <p>ou refane@live.fr</p>
-      </div>
-
-<div id="mail">
-    <h1>Envoyer vos messages ici</h1>
+   <header class="panel panel-info" style="font-family:inherit ; font-weight:bold; text-transform: uppercase;color: #000;"> {{chemin | replace({'Video>>': ''})}}</header>
+    
+             <div class="col-lg-6 col-md-5 col-xd-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Pour
+                        </div>
+                        <div class="panel-body">
+                            <p>Toutes suggestions ou informations
+                                <abbr title="attribute">sur</abbr></p>
+                            <p>
+                                <abbr title="HyperText Markup Language" class="initialism">TBR</abbr> nous sommes à votre disposition</p>
+                            <br>
+                            <h4>Adresse</h4>
+                            <address>
+                                <strong>toubarefane.com</strong>
+                                <br>11bis Bd Dethez,
+                                <br>Istres, 13800
+                                <br>
+                                <abbr title="Phone"></abbr>0033782349624
+                                <br>
+                                <abbr title="Phone"></abbr>0033644046658
+                            </address>
+                            <address>
+                                <strong>Touba Refane</strong>
+                                <br>
+                                <a href="mailto:#">info@toubarefane.com</a>
+                                <br>
+                                <a href="mailto:#">refane@live.fr</a>
+                            </address>
+                        </div>
+                    </div>
+             </div>
+                        <!-- /.panel-body -->
+              <div class="col-lg-6 col-md-5 col-xd-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        <div id="mail">
+                       <h3>Par email direct</h3>
   <form method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <input type="submit" value="envoyer" class="btn btn-primary" />
   </form>
  </p>
-</div>
+                   </div>
+                    </div>
+                     </div>     
+                    <!-- /.panel -->
+                        </div>
+
  
-  </div>
   {% endblock %}

@@ -3,13 +3,17 @@
 {% extends "ToubarefaneSiteBundle::layout.html.twig" %}
 
 {% block title %}
-  Lecture d'un article - {{ parent() }}
+  Photo - {{ parent() }}
 {% endblock %}
 
 {% block toubarefanesite_body %}
-  <div id="photo" >
-{% if image is not null %}
-    <img src="{{ asset(image.uploadDir ~ '/' ~ image.url) }}" alt="{{ image.alt }}" />
-  {% endif %}
+ <div class="col-md-10 col-xd-12">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            {% if image is not null %}
+                            <img class="oimg" src="{{ asset(image.uploadDir ~ '/' ~ image.url) }}" alt="{{ image.alt }}" />
+                            {% endif %}
+                        </div>
+                      </div>
   </div>
 {% endblock %}

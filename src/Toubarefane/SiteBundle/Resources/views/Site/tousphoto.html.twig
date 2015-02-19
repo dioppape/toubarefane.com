@@ -7,24 +7,23 @@
 {% endblock %}
 
 {% block toubarefanesite_body %}
- <div id="content"> 
-      <div class="gallery">
-      <h2>Photos</h2>
-      <ul>
- {% for allimages in images %}
-  {# On vérifie qu'une image soit bien associée à l'article #}
-  {% if allimages is not null %}
-  <li><a href="{{ path('toubarefanephoto_voir', {'id': allimages.id}) }}">    
-   <img
-  src="{{ asset(allimages.uploadDir ~ '/' ~ allimages.url) }}"
-  alt="{{ allimages.alt }}" height="174" width="174"  
-/>
-      </a></li>
-  {% endif %}
-     
-   
-{% endfor %}
-       </ul>
-      </div>
+ <div class="col-xd-12 col-md-12">
+                     
+                      {% for allimages in images %}
+                      {# On vérifie qu'une image soit bien associée à l'article #}
+                       {% if allimages is not null %}
+                    <div class="col-xd-12 col-md-4">
+                        <div class="panel">
+                        <div class="panel-heading"> 
+                      <a href="{{ path('toubarefanephoto_voir', {'id': allimages.id}) }}">    
+                          <img class="img-responsive gimg" src="{{ asset(allimages.uploadDir ~ '/' ~ allimages.url) }}"
+                       alt="{{ allimages.alt }}" height="174" width="174"  />
+                          </a>
+                      </div>
+                                    </div>
+               </div>
+             {% endif %}
+             {% endfor %}
+                
  </div>
 {% endblock %}

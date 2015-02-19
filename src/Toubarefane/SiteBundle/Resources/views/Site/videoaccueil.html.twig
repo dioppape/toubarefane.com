@@ -1,48 +1,22 @@
-{# src/Sdz/BlogBundle/Resources/views/Blog/voir.html.twig #}
 
-{% extends "ToubarefaneSiteBundle::layout.html.twig" %}
-
-{% block title %}
-  Accueil - {{ parent() }}
-{% endblock %}
-
-{% block toubarefanesite_body %}
- <div id="content"> 
-     <div id="featured_post">
-          <h2>Présentation du site</h2>
+<div class="col-lg-3 col-md-3 col-sm-5 col-xs-12">
+              <header class="panel panel-info newtitle">Nouvelles Videos</header>          
     
-          
-  {# On vérifie qu'une video soit bien associée à l'article #}
-  
-          {% for videos in videos %}
-             {% set nav = true %}
-           {% if videos.category =="accueil" %}
-          <h3>{{ videos.embeded | raw }}</h3><h1> {{ videos.alt}}</h1>
-          {% endif %} 
-         {% endfor %}  
-      </p>
-    </div>
-     <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<div class="fb-comments" data-href="http://www.toubarefane.com/accueil/video" data-numposts="5" data-colorscheme="light"></div>
-   </div>
-   <div id="column">
-      <ul id="news">
-        <h2>Nouvelles vidéos</h2>
-         {% set i = 0%}
-          {% for videos in videos %}
-            
-           {% if videos.category =="nouveau" and i<2 %}
-          <h4>{{ videos.embeded | raw }}</h4><h5> {{ videos.alt}}</h5>
-         {% set i = i + 1%}
-          {% endif %} 
-         {% endfor %}
-      </ul>
-   </div>
-{% endblock %}
+                       
+                                {% for videos in autrevideo | reverse %}
+                                 {% set clef=videos.embeded |slice(38,35)%}
+                                  {% set url='<iframe class="gvideo img-responsive img-thumbnail" src="lien?rel=0&amp;controls=0&amp;showinfo=0&amp;color=red&amp;playsinline=1&amp;allowsInlineMediaPlayback=TRUE" frameborder="0" allowfullscreen></iframe>' %}
+                                  <a href="{{ path('toubarefanevideo_voir', {'id': videos.id}) }}">
+                            
+                                    <div class="bgvideo"> 
+                                     {{ url | replace({'lien': clef}) | raw  }}
+                                    </div>
+                                     <div class="bgtitre">
+                                     <span class="videotitle">{{ videos.name}}</span>  
+                                    </div>        
+                                 </a>
+                               {% endfor %} 
+</div>
+
+           
+

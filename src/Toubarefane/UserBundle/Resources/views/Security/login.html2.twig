@@ -1,0 +1,82 @@
+{% extends "ToubarefaneUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+<!--META-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login Form</title>
+
+<!--STYLESHEETS-->
+<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+
+<!--SCRIPTS-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<!--Slider-in icons-->
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".username").focus(function() {
+		$(".user-icon").css("left","-48px");
+	});
+	$(".username").blur(function() {
+		$(".user-icon").css("left","0px");
+	});
+	
+	$(".password").focus(function() {
+		$(".pass-icon").css("left","-48px");
+	});
+	$(".password").blur(function() {
+		$(".pass-icon").css("left","0px");
+	});
+});
+</script>
+
+</head>
+<body>
+
+<!--WRAPPER-->
+<div id="wrapper">
+
+	<!--SLIDE-IN ICONS-->
+    <div class="user-icon"></div>
+    <div class="pass-icon"></div>
+    <!--END SLIDE-IN ICONS-->
+
+<!--LOGIN FORM-->
+<form name="login-form" class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+
+	<!--HEADER-->
+    <div class="header">
+    <!--TITLE--><h1>Connexion de l'administrateur</h1><!--END TITLE-->
+    <!--DESCRIPTION--><span>Veillez s'identifier pour accéder à l'espace d'administration du site.</span><!--END DESCRIPTION-->
+    </div>
+    <!--END HEADER-->
+	
+	<!--CONTENT-->
+    <div class="content">
+         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+	<!--USERNAME--><input type="text" id="username" name="_username"  required="required"  class="input username" value="Email" onfocus="this.value=''" /><!--END USERNAME-->
+    <!--PASSWORD--><input type="password" id="password" name="_password" required="required" class="input password" value="Mot de passe" onfocus="this.value=''" /><!--END PASSWORD-->
+    </div>
+    <!--END CONTENT-->
+    
+    <!--FOOTER-->
+    <div class="footer">
+    <!--LOGIN BUTTON--><input type="submit" name="submit" value="Connexion" class="button" /><!--END LOGIN BUTTON-->
+     <!--REGISTER BUTTON--><input type="submit" name="submit" value="retrouver mot de passe" class="register" /><!--END REGISTER BUTTON-->  
+    </div>
+    <!--END FOOTER-->
+
+</form>
+<!--END LOGIN FORM-->
+
+</div>
+<!--END WRAPPER-->
+
+<!--GRADIENT--><div class="gradient"></div><!--END GRADIENT-->
+
+</body>
+{% endblock fos_user_content %}
