@@ -7,7 +7,6 @@ namespace Toubarefane\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Toubarefane\SiteBundle\Entity\Article;
-use Toubarefane\SiteBundle\Form\ImageType;
 use Toubarefane\SiteBundle\Form\ArticleType;
 use Toubarefane\SiteBundle\Form\ArticleEditType;
 use Toubarefane\SiteBundle\Form\ContactType;
@@ -33,7 +32,7 @@ $text='http://tb.com refane@live.fr ';
                      ->getArticles(3,$page);
   
 
-  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+  // $article est donc une instance de Toubarefane\SiteBundle\Entity\Article
 
   // Ou null si aucun article n'a été trouvé avec l'id $id
   if($articles === null)
@@ -64,7 +63,7 @@ $text='http://tb.com refane@live.fr ';
   // On récupère l'entité correspondant à l'id $id
   $liste = $repository->findAll();
 
-  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+  // $article est donc une instance de Toubarefane\SiteBundle\Entity\Article
 
   // Ou null si aucun article n'a été trouvé avec l'id $id
   if($liste === null)
@@ -87,7 +86,7 @@ $text='http://tb.com refane@live.fr ';
   // On récupère l'entité correspondant à l'id $id
   $article = $repository->find($id);
 
-  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+  // $article est donc une instance de Toubarefane\SiteBundle\Entity\Article
 
   // Ou null si aucun article n'a été trouvé avec l'id $id
   if($article === null)
@@ -113,7 +112,7 @@ $text='http://tb.com refane@live.fr ';
   // On récupère l'entité correspondant à l'id $id
   $article = $repository->findAll();
 
-  // $article est donc une instance de Sdz\BlogBundle\Entity\Article
+  // $article est donc une instance de Toubarefane\SiteBundle\Entity\Article
 
     
   return $this->render('ToubarefaneSiteBundle:Admin:voirtous.html.twig', array(
@@ -246,27 +245,7 @@ $contenu = $this->renderView('ToubarefaneSiteBundle:Site:email.txt.twig', array(
   }
 
 // Ajoutez cette méthode ajouterAction :
-  
-public function headAction()
-  {
-    
-   $image=array('url'=>'http://uploads.siteduzero.com/icones/478001_479000/478657.png');
-  return $this->render('::layout.html.twig', array(
-    'image' => $image
-  ));
-    
-  
-  }
-public function footAction()
-  {
-    
-    
-  return $this->render('ToubarefaneSiteBundle:Site:index.html.twig', array(
-    'image' => $image
-  ));
-    
-  
-  }
+ 
    public function contactAction()
     {
         $form = $this->get('form.factory')->create(new ContactType());

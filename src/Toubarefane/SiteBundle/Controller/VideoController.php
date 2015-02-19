@@ -24,7 +24,7 @@ class VideoController extends Controller
   // On récupère l'entité correspondant à l'id $id
   $video = $repository->find($id);
 
-  // $video est donc une instance de Sdz\BlogBundle\Entity\Video
+  // $video est donc une instance de Toubarefane\SiteBundle\Entity\Video
 
   // Ou null si aucun video n'a été trouvé avec l'id $id
   if($video === null)
@@ -52,7 +52,7 @@ class VideoController extends Controller
   // On récupère l'entité correspondant à l'id $id
   //$videos = $repository->findAll();
 
-  // $video est donc une instance de Sdz\BlogBundle\Entity\Video
+  // $video est donc une instance de Toubarefane\SiteBundle\Entity\Video
 
     
   return $this->render('ToubarefaneSiteBundle:Site:video.html.twig', array(
@@ -76,7 +76,7 @@ class VideoController extends Controller
   // On récupère l'entité correspondant à l'id $id
   //$videos = $repository->findAll();
 
-  // $video est donc une instance de Sdz\BlogBundle\Entity\Video
+  // $video est donc une instance de Toubarefane\SiteBundle\Entity\Video
 
     
   return $this->render('ToubarefaneSiteBundle:Site:video.html.twig', array(
@@ -100,7 +100,7 @@ class VideoController extends Controller
   // On récupère l'entité correspondant à l'id $id
   //$videos = $repository->findAll();
 
-  // $video est donc une instance de Sdz\BlogBundle\Entity\Video
+  // $video est donc une instance de Toubarefane\SiteBundle\Entity\Video
 
     
   return $this->render('ToubarefaneSiteBundle:Site:video.html.twig', array(
