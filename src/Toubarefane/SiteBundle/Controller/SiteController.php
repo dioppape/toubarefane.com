@@ -11,13 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Toubarefane\SiteBundle\Form\ContactType;
 
 class SiteController extends Controller {
-    /* http://symfony.com/fr/doc/current/cookbook/security/voters.html
-     * https://github.com/valllabh/jquery.currency.converter
-     * http://finance.yahoo.com/currency-converter/
-     * http://stackoverflow.com/questions/3139879/how-do-i-get-currency-exchange-rates-via-an-api-such-as-google-finance
-     * http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22USDEUR%22,%20%22USDISK%22)&env=store://datatables.org/alltableswithkeys
-     * http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.xchange where pair in ("USDEUR", "USDISK")&env=store://datatables.org/alltableswithkeys */
-
+   
     public function indexAction($page) {
 
         $nbParPage = $this->container->getParameter('tbrsite.nombre_par_page');
